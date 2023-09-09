@@ -8,3 +8,7 @@ This is Mahim Choudhury. I am currently enrolled in BU’s online software devel
 Trevor Cardoza
 
 I am Trevor. I am attending online from California for a Masters in Software Development. I got my Undergrad in Business Data Analytics from Saint Mary's College of California. I work as a Technical Game Designer at Crystal Dynamics on the Tomb Raider Team. I cannot wait to get started and to come up with something awesome!
+
+Delaney Sullivan
+
+My name is Delaney and I'm in the MSSD program. I earned my bachelor's in Computer Science from the University of Vermont and I work at Raytheon as a software engineer. I'm excited to hopefully work on a project with Python. I don't have much experience with stacks but I have used a little bit of flask in undergrad
