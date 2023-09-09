@@ -1,2 +1,14 @@
-# GroupProjectTemplate
-Please make sure to modify this readme file as well as the "about" property of the project!
+# Team BUM-TV Project Repo 
+
+## Project Overview
+
+TODO
+
+## Team Members and Roles
+
+TODO
+
+## Application
+
+### Application Architecture
+
