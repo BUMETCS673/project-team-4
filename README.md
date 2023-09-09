@@ -30,8 +30,11 @@ TODO
 - Run the following commands to commit and push changes to the remote repo:
 
 ```console
-foo@bar:~$ whoami
-foo
+
+git add -A
+git commit -m "my commit message"
+git push origin my_branch
+
 ```
 
 #### Working with Remote Repos
