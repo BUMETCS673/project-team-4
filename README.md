@@ -19,4 +19,3 @@ TODO
 ### Branching Strategy
 
 TODO
-
