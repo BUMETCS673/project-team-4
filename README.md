@@ -6,7 +6,15 @@ TODO
 
 ### Team Members and Roles
 
-TODO
+##### Trevor Cardoza - Design and Implementation Lead
+
+##### Mahim Choudhury - Security Lead
+
+##### Zhe Huang - QA Lead
+
+##### David Mulvihil - Configuration Management Lead
+
+##### Delaney Sullivan - Requirements Lead 
 
 ### Project Links
 
@@ -47,7 +55,7 @@ git checkout -b last_name
 
 ```
 
-To switch between branches:
+Switch between branches:
 
 ```console
 
@@ -55,7 +63,7 @@ git checkout branch_name
 
 ```
 
-To commit and push changes to the remote repo:
+Commit and push changes to the remote repo:
 
 ```console
 
@@ -65,7 +73,15 @@ git push origin last_name
 
 ```
 
-To check the status of the current branch:
+View local and remote branches:
+
+```console
+
+git branch -a
+
+```
+
+Check the status of the current branch:
 
 ```console
 
