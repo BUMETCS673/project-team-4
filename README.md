@@ -10,5 +10,13 @@ TODO
 
 ## Application
 
+TODO
+
 ### Application Architecture
+
+TODO
+
+### Branching Strategy
+
+TODO
 
