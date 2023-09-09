@@ -12,3 +12,7 @@ I am Trevor. I am attending online from California for a Masters in Software Dev
 Delaney Sullivan
 
 My name is Delaney and I'm in the MSSD program. I earned my bachelor's in Computer Science from the University of Vermont and I work at Raytheon as a software engineer. I'm excited to hopefully work on a project with Python. I don't have much experience with stacks but I have used a little bit of flask in undergrad
+
+Zhe Huang
+
+I'am Zhe Huang. You can call me Jack. Bachelor's degree, Master's in progress， major in CS   at BU MET, major in AI at undergraduate. At 2021 summer, I had an Internship at a logistics company and wrote a software for testing smart logistics systems in Python(Flask). I have an idea about project : epub(a format of ebook) generator, it will be a Win App and wrote in c++. I am more familiar with python and c/c++.
