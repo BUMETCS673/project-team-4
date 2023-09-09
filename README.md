@@ -8,23 +8,23 @@ TODO
 
 ### Project Directory Structure
 
-#### .github/workflows
+- #### .github/workflows
 
 Description
 
-#### app
+- #### app
 
 Description
 
-#### documentation
+- #### documentation
 
 Description
 
-#### scripts
+- #### scripts
 
 Description
 
-#### terraform/modules
+- #### terraform/modules
 
 Description
 
