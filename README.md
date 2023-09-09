@@ -2,19 +2,48 @@
 
 ## Project Overview
 
+### Project Description
+
 TODO
+
+### Project Directory Structure
+
+#### .github/workflows
+
+Description
+
+#### app
+
+Description
+
+#### documentation
+
+Description
+
+#### scripts
+
+Description
+
+#### terraform/modules
+
+Description
 
 ### Team Members and Roles
 
-##### Trevor Cardoza - Design and Implementation Lead
+- ##### Trevor Cardoza - Design and Implementation Lead
+Responsible for...
 
-##### Mahim Choudhury - Security Lead
+- ##### Mahim Choudhury - Security Lead
+Responsible for...
 
-##### Zhe Huang - QA Lead
+- ##### Zhe Huang - QA Lead
+Responsible for...
 
-##### David Mulvihil - Configuration Management Lead
+- ##### David Mulvihil - Configuration Management Lead
+Responsible for...
 
-##### Delaney Sullivan - Requirements Lead 
+- ##### Delaney Sullivan - Requirements Lead 
+Responsible for...
 
 ### Project Links
 
