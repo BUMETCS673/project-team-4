@@ -1,4 +1,4 @@
-# Team BUM-TV Project Repo 
+# BUM-TV Project Repo 
 
 ## Project Overview
 
