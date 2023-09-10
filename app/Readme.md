@@ -30,6 +30,6 @@ docker images
 
 ```console
 
-docker run -it image_name:tag bin/bash   
+docker run -it image_name:tag sh   
 
 ```
