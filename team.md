@@ -16,3 +16,7 @@ My name is Delaney and I'm in the MSSD program. I earned my bachelor's in Comput
 Zhe Huang
 
 I'am Zhe Huang. You can call me Jack. Bachelor's degree, Master's in progress， major in CS   at BU MET, major in AI at undergraduate. At 2021 summer, I had an Internship at a logistics company and wrote a software for testing smart logistics systems in Python(Flask). I have an idea about project : epub(a format of ebook) generator, it will be a Win App and wrote in c++. I am more familiar with python and c/c++.
+
+David Mulvihill
+
+Hello everyone, my name is David Mulvihill, and I am in the MSSD program. I currently work as a Cloud DevOps Engineer at the Federal Reserve Bank of Chicago and have been there for about three years now. Prior to this I worked for Amazon Web Services as a Cloud DevOps Engineer for two years. I also worked for five years as a Systems Administrator at the University of Illinois at Chicago. I work a lot with CI/CD at the Fed and I have also built containerized applications running on AWS ECS that also leverage API Gateway, Lambda, and RDS. Both with my work at the Fed and AWS, I am pretty fluent with a large number of AWS services. I also work a lot with Terraform for deploying to AWS through our pipelines, and I have also worked a lot with Java, Python, NodeJs, and PHP. Looking forward to working with everyone.
