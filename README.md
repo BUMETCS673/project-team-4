@@ -1,4 +1,4 @@
-# BUM-TV Project Repo 
+# BUMTV Project Repo 
 
 ## Project Overview
 
