@@ -3,10 +3,12 @@ name: "Terraform Plan"
 on:
   pull_request:
 
+with:
+  tf_actions_working_dir: '/terraform/modules'
 env:
   TF_CLOUD_ORGANIZATION: "TV-Bums"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "project-team-4/terraform/modules"
+  TF_WORKSPACE: "prod"
   CONFIG_DIRECTORY: "./"
 
 jobs:
