@@ -7,7 +7,7 @@ env:
   TF_CLOUD_ORGANIZATION: "TV-Bums"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "prod"
-  CONFIG_DIRECTORY: "terraform/modules"
+  CONFIG_DIRECTORY: "./terraform/modules"
 
 jobs:
   terraform:
