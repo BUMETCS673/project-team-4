@@ -57,6 +57,7 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
+    tf_actions_working_dir: '/terraform/modules'
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
