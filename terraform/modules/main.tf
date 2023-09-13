@@ -31,7 +31,14 @@ terraform {
 ## ECS Resources ##
 ###################
 
+resource "aws_ecs_cluster" "flask_cluster" {
+  name = "flask-cluster"
 
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
+}
 
 ###################
 ## IAM Resources ##
