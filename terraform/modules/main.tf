@@ -39,3 +39,11 @@ resource "aws_subnet" "flask_subnet_1c" {
     Name = "flask-app-subnet-1c"
   }
 }
+
+resource "aws_internet_gateway" "flask_vpc_igw" {
+  vpc_id = aws_vpc.flask_vpc.id
+
+  tags = {
+    Name = "flask-app-igw"
+  }
+}
