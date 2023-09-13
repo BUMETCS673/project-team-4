@@ -20,3 +20,8 @@ I'am Zhe Huang. You can call me Jack. Bachelor's degree, Master's in progress，
 David Mulvihill
 
 Hello everyone, my name is David Mulvihill, and I am in the MSSD program. I currently work as a Cloud DevOps Engineer at the Federal Reserve Bank of Chicago and have been there for about three years now. Prior to this I worked for Amazon Web Services as a Cloud DevOps Engineer for two years. I also worked for five years as a Systems Administrator at the University of Illinois at Chicago. I work a lot with CI/CD at the Fed and I have also built containerized applications running on AWS ECS that also leverage API Gateway, Lambda, and RDS. Both with my work at the Fed and AWS, I am pretty fluent with a large number of AWS services. I also work a lot with Terraform for deploying to AWS through our pipelines, and I have also worked a lot with Java, Python, NodeJs, and PHP. I am looking forward to working with everyone.
+
+
+Jianing Li
+
+Hi everyone, my name is Jianing and I'm enrolled in BU's online MSCS program. I got my bachelor's in Mechanical Engineeing from BU and I'm currently working as a product manager for upper and lower limb prothesis. I also manage an education brand called NeuroMaker which uses the prosthetic hand for STEM education. I have some limited experience in Java, Python, Node.js, php and mySQL, mostly from class projects and materials. Happy to work with any area needed to accomplish the group goal, since I joined late. Looking forward to working with all of you!
