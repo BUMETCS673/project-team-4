@@ -1,13 +1,10 @@
 name: "Terraform Apply"
 
 on:
-    push:
-      branches: [ "main" ]
-    workflow_run:
-      workflows: [Terraform Plan]
-      types:
-        - completed
-
+  workflow_run:
+    workflows: [Terraform Plan]
+    types:
+      - completed
 
 env:
   TF_CLOUD_ORGANIZATION: "Teras"
