@@ -31,43 +31,7 @@
 ## ECS Resources ##
 ###################
 
-resource "aws_ecs_cluster" "flask_app_cluster" {
-  name = "flask-app-cluster"
 
-  setting {
-    name  = "containerInsights"
-    value = "enabled"
-  }
-}
-
-resource "aws_ecs_task_definition" "flask_service" {
-  family = "service"
-  container_definitions = jsonencode([
-    {
-      name      = "flask-app"
-      image     = "flask-app:latest"
-      cpu       = 10
-      memory    = 512
-      essential = true
-      portMappings = [
-        {
-          containerPort = 80
-          hostPort      = 80
-        }
-      ]
-    }
-  ])
-
-  volume {
-    name      = "service-storage"
-    host_path = "/ecs/service-storage"
-  }
-
-  placement_constraints {
-    type       = "memberOf"
-    expression = "attribute:ecs.availability-zone in [us-east-1a, us-east-1b, us-east-1c]"
-  }
-}
 
 ###################
 ## IAM Resources ##
