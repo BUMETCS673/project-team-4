@@ -1,3 +1,12 @@
+
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state-09-12-2023-bu-cs673"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"    
+  }
+}
+
 ###################
 ## VPC Resources ##
 ###################
