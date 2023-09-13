@@ -116,3 +116,7 @@ resource "aws_internet_gateway" "flask_vpc_igw" {
   }
 }
 
+#routes
+#security-groups
+#task-definition
+#ecs-service
