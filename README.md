@@ -31,19 +31,11 @@ Description
 ### Team Members and Roles
 
 - #### Trevor Cardoza - Design and Implementation Lead
-Responsible for...
-
 - #### Mahim Choudhury - Security Lead
-Responsible for...
-
 - #### Zhe Huang - QA Lead
-Responsible for...
-
 - #### David Mulvihil - Configuration Management Lead
-Responsible for...
-
 - #### Delaney Sullivan - Requirements Lead 
-Responsible for...
+
 
 ### Project Links
 
