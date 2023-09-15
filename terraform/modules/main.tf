@@ -70,7 +70,7 @@ resource "aws_ecs_cluster" "flask_cluster" {
 ## VPC Resources ##
 ###################
 
-resource "aws_vpc" "flask_vpc" {
+resource "aws_vpc" "flask_app_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
@@ -78,37 +78,37 @@ resource "aws_vpc" "flask_vpc" {
   }
 }
 
-resource "aws_subnet" "flask_subnet_1a" {
+resource "aws_subnet" "flask_app_subnet_1a" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.1.0/24"
-  vpc_id            = aws_vpc.flask_vpc.id
+  vpc_id            = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-subnet-1a"
   }
 }
 
-resource "aws_subnet" "flask_subnet_1b" {
+resource "aws_subnet" "flask_app_subnet_1b" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.0.2.0/24"
-  vpc_id            = aws_vpc.flask_vpc.id
+  vpc_id            = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-subnet-1b"
   }
 }
 
-resource "aws_subnet" "flask_subnet_1c" {
+resource "aws_subnet" "flask_app_subnet_1c" {
   availability_zone = "us-east-1c"
   cidr_block        = "10.0.3.0/24"
-  vpc_id            = aws_vpc.flask_vpc.id
+  vpc_id            = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-subnet-1c"
   }
 }
 
-resource "aws_internet_gateway" "flask_vpc_igw" {
+resource "aws_internet_gateway" "flask_app_igw" {
   vpc_id = aws_vpc.flask_vpc.id
 
   tags = {
@@ -116,12 +116,17 @@ resource "aws_internet_gateway" "flask_vpc_igw" {
   }
 }
 
-resource "aws_route_table" "example" {
-  vpc_id = aws_vpc.flask_vpc.id
+resource "aws_route_table" "flask_app_route_table" {
+  vpc_id = aws_vpc.flask_app_vpc.id
 
   tags = {
-    Name = "flask-app-rt"
+    Name = "flask-app-route-table"
   }
+}
+
+resource "aws_route" "flask_app_route_igw" {
+  route_table_id = aws_route_table.flask_app_route_table.id
+  gateway_id     = aws_internet_gateway.flask_app_vpc_igw.id
 }
 #routes
 #security-groups
