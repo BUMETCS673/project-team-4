@@ -119,11 +119,6 @@ resource "aws_internet_gateway" "flask_vpc_igw" {
 resource "aws_route_table" "example" {
   vpc_id = aws_vpc.flask_vpc.id
 
-  route {
-    cidr_block = "10.0.0.0/16"
-    gateway_id = aws_internet_gateway.flask_vpc_igw.id
-  }
-
   tags = {
     Name = "flask-app-rt"
   }
