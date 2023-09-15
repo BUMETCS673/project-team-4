@@ -109,7 +109,7 @@ resource "aws_subnet" "flask_app_subnet_1c" {
 }
 
 resource "aws_internet_gateway" "flask_app_igw" {
-  vpc_id = aws_vpc.flask_vpc.id
+  vpc_id = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-igw"
@@ -125,8 +125,10 @@ resource "aws_route_table" "flask_app_route_table" {
 }
 
 resource "aws_route" "flask_app_route_igw" {
-  route_table_id = aws_route_table.flask_app_route_table.id
-  gateway_id     = aws_internet_gateway.flask_app_vpc_igw.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.flask_app_igw.id
+  route_table_id         = aws_route_table.flask_app_route_table.id
+
 }
 #routes
 #security-groups
