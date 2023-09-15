@@ -14,7 +14,18 @@ terraform {
 ## ACM Resources ##
 ###################
 
+resource "aws_acm_certificate" "domain_cert" {
+  domain_name       = "bumtelevision.com"
+  validation_method = "DNS"
 
+  tags = {
+    Environment = "flask-app-cert"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
 
 ###################
 ## ALB Resources ##
@@ -128,7 +139,6 @@ resource "aws_route" "flask_app_route_igw" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.flask_app_igw.id
   route_table_id         = aws_route_table.flask_app_route_table.id
-
 }
 #routes
 #security-groups
