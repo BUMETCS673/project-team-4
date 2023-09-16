@@ -51,6 +51,30 @@ resource "aws_ecs_cluster" "flask_cluster" {
   }
 }
 
+resource "aws_ecs_task_definition" "service" {
+  family = "service"
+  container_definitions = jsonencode([
+    {
+      name      = "first"
+      image     = "service-first"
+      cpu       = 10
+      memory    = 512
+      essential = true
+      portMappings = [
+        {
+          containerPort = 80
+          hostPort      = 80
+        }
+      ]
+    }
+  ])  
+
+  placement_constraints {
+    type       = "memberOf"
+    expression = "attribute:ecs.availability-zone in [us-east-1a, us-east-1b]"
+  }
+}
+
 ###################
 ## IAM Resources ##
 ###################
