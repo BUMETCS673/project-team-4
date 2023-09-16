@@ -32,6 +32,7 @@ resource "aws_acm_certificate" "domain_cert" {
 ###################
 
 
+
 ##########################
 ## CloudWatch Resources ##
 ##########################
@@ -51,12 +52,12 @@ resource "aws_ecs_cluster" "flask_cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "service" {
-  family = "service"
+resource "aws_ecs_task_definition" "flask_app_container" {
+  family = "flask-app"
   container_definitions = jsonencode([
     {
-      name      = "first"
-      image     = "service-first"
+      name      = "flask-app"
+      image     = "nginx:latest"
       cpu       = 10
       memory    = 512
       essential = true
@@ -71,7 +72,7 @@ resource "aws_ecs_task_definition" "service" {
 
   placement_constraints {
     type       = "memberOf"
-    expression = "attribute:ecs.availability-zone in [us-east-1a, us-east-1b]"
+    expression = "attribute:ecs.availability-zone in [us-east-1a, us-east-1b, us-east-1c]"
   }
 }
 
@@ -80,9 +81,11 @@ resource "aws_ecs_task_definition" "service" {
 ###################
 
 
+
 ###################
 ## KMS Resources ##
 ###################
+
 
 
 ######################
@@ -90,9 +93,17 @@ resource "aws_ecs_task_definition" "service" {
 ######################
 
 
+
+###############################
+## Secrets Manager Resources ##
+###############################
+
+
+
 ########################
 ## Route-53 Resources ##
 ########################
+
 
 
 ###############################
@@ -164,7 +175,6 @@ resource "aws_route" "flask_app_route_igw" {
   gateway_id             = aws_internet_gateway.flask_app_igw.id
   route_table_id         = aws_route_table.flask_app_route_table.id
 }
-#routes
+
 #security-groups
-#task-definition
 #ecs-service
