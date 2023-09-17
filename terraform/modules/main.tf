@@ -54,6 +54,7 @@ resource "aws_ecs_cluster" "flask_cluster" {
 
 resource "aws_ecs_task_definition" "flask_app_container" {
   family = "flask-app"
+  requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
       name      = "flask-app"
