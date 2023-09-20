@@ -81,13 +81,17 @@ resource "aws_ecs_task_definition" "flask_app_container_td" {
 }
 
 resource "aws_ecs_service" "flask_app_svc" {
-  name             = "flask-app-svc"
-  assign_public_ip = "true"
+  name             = "flask-app-svc"  
   cluster          = aws_ecs_cluster.flask_cluster.id
   desired_count    = 1
   launch_type      = "FARGATE"
-  #security_groups = ""
+  
   task_definition = aws_ecs_task_definition.flask_app_container_td.arn
+
+  network_configuration {
+    assign_public_ip = "true"
+    #security_groups = ""    
+  }
 }
 
 ###################
@@ -105,13 +109,6 @@ resource "aws_ecs_service" "flask_app_svc" {
 ######################
 ## Lambda Resources ##
 ######################
-
-
-
-###############################
-## Secrets Manager Resources ##
-###############################
-
 
 
 ########################
