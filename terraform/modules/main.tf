@@ -126,9 +126,9 @@ resource "aws_ecs_service" "flask_app_svc" {
 
 
 
-###############################
-## Secrets Manager Resources ##
-###############################
+##############################
+## Security Group Resources ##
+##############################
 
 resource "aws_security_group" "flask_app_sg" {
   description = "placeholder"
