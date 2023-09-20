@@ -53,11 +53,11 @@ resource "aws_ecs_cluster" "flask_cluster" {
 }
 
 resource "aws_ecs_task_definition" "flask_app_container" {
-  cpu              = 256
-  memory           = 512
-  executionRoleArn = "arn:aws:iam::012345678910:role/ecsTaskExecutionRole"
-  family           = "flask-app"
-  network_mode     = "awsvpc"
+  cpu                = 256
+  memory             = 512
+  execution_role_arn = "arn:aws:iam::622508827640:role/ecsTaskExecutionRole"
+  family             = "flask-app"
+  network_mode       = "awsvpc"
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = "X86_64"
