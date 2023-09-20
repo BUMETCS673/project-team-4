@@ -90,7 +90,8 @@ resource "aws_ecs_service" "flask_app_svc" {
 
   network_configuration {
     assign_public_ip = "true"
-    #security_groups = ""    
+    #security_groups = ""  
+    subsubnets = [aws_subnet.flask_app_subnet_1a.id]  
   }
 }
 
