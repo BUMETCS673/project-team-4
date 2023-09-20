@@ -176,19 +176,34 @@ resource "aws_subnet" "flask_app_subnet_1c" {
   }
 }
 
-resource "aws_internet_gateway" "flask_app_igw" {
-  vpc_id = aws_vpc.flask_app_vpc.id
-
-  tags = {
-    Name = "flask-app-igw"
-  }
-}
-
 resource "aws_route_table" "flask_app_route_table" {
   vpc_id = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-route-table"
+  }
+}
+
+resource "aws_route_table_association" "subnet_1a" {
+  subnet_id      = aws_subnet.flask_app_subnet_1a.id
+  route_table_id = aws_route_table.flask_app_route_table.id
+}
+
+resource "aws_route_table_association" "subnet_1b" {
+  subnet_id      = aws_subnet.flask_app_subnet_1b.id
+  route_table_id = aws_route_table.flask_app_route_table.id
+}
+
+resource "aws_route_table_association" "subnet_1c" {
+  subnet_id      = aws_subnet.flask_app_subnet_1c.id
+  route_table_id = aws_route_table.flask_app_route_table.id
+}
+
+resource "aws_internet_gateway" "flask_app_igw" {
+  vpc_id = aws_vpc.flask_app_vpc.id
+
+  tags = {
+    Name = "flask-app-igw"
   }
 }
 
