@@ -53,16 +53,22 @@ resource "aws_ecs_cluster" "flask_cluster" {
 }
 
 resource "aws_ecs_task_definition" "flask_app_container" {
-  family = "flask-app"
-  network_mode             = "awsvpc"
+  cpu              = 256
+  memory           = 512
+  executionRoleArn = "arn:aws:iam::012345678910:role/ecsTaskExecutionRole"
+  family           = "flask-app"
+  network_mode     = "awsvpc"
+  runtime_platform {
+    operatingSystemFamily = "LINUX"
+  }
+
   requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
-      name      = "flask-app"
-      image     = "nginx:latest"
-      cpu       = 1024
-      memory    = 2048
-      essential = true      
+      name  = "flask-app"
+      image = "nginx:latest"
+
+      essential = true
       portMappings = [
         {
           containerPort = 80
