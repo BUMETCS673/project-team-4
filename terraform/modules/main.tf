@@ -59,7 +59,8 @@ resource "aws_ecs_task_definition" "flask_app_container" {
   family           = "flask-app"
   network_mode     = "awsvpc"
   runtime_platform {
-    operatingSystemFamily = "LINUX"
+    operating_system_family = "LINUX"
+    cpu_architecture        = "X86_64"
   }
 
   requires_compatibilities = ["FARGATE"]
