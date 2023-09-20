@@ -87,7 +87,7 @@ resource "aws_ecs_service" "flask_app_svc" {
   desired_count    = 1
   launch_type      = "FARGATE"
   #security_groups = ""
-  task_definition  = aws_ecs_task_definition.flask_app_container_td.arn
+  task_definition = aws_ecs_task_definition.flask_app_container_td.arn
 }
 
 ###################
@@ -125,6 +125,16 @@ resource "aws_ecs_service" "flask_app_svc" {
 ###############################
 
 
+
+###############################
+## Secrets Manager Resources ##
+###############################
+
+resource "aws_security_group" "flask_app_sg" {
+  description = "placeholder"
+  name        = "placeholder"
+  vpc_id      = aws_vpc.flask_app_vpc.id
+}
 
 ###################
 ## VPC Resources ##
