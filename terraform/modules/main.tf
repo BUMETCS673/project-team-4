@@ -54,14 +54,15 @@ resource "aws_ecs_cluster" "flask_cluster" {
 
 resource "aws_ecs_task_definition" "flask_app_container" {
   family = "flask-app"
+  network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
       name      = "flask-app"
       image     = "nginx:latest"
-      cpu       = 10
-      memory    = 512
-      essential = true
+      cpu       = 1024
+      memory    = 2048
+      essential = true      
       portMappings = [
         {
           containerPort = 80
