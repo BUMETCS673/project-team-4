@@ -52,7 +52,7 @@ resource "aws_ecs_cluster" "flask_cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "flask_app_container" {
+resource "aws_ecs_task_definition" "flask_app_container_td" {
   cpu                = 256
   memory             = 512
   execution_role_arn = "arn:aws:iam::622508827640:role/ecsTaskExecutionRole"
@@ -78,6 +78,16 @@ resource "aws_ecs_task_definition" "flask_app_container" {
       ]
     }
   ])
+}
+
+resource "aws_ecs_service" "flask_app_svc" {
+  name             = "flask-app-svc"
+  assign_public_ip = "true"
+  cluster          = aws_ecs_cluster.flask_cluster.id
+  desired_count    = 1
+  launch_type      = "FARGATE"
+  #security_groups = ""
+  task_definition = aws_ecs_task_definition.flask_app_container_td.arn
 }
 
 ###################
@@ -115,6 +125,16 @@ resource "aws_ecs_task_definition" "flask_app_container" {
 ###############################
 
 
+
+##############################
+## Security Group Resources ##
+##############################
+
+resource "aws_security_group" "flask_app_sg" {
+  description = "placeholder"
+  name        = "placeholder"
+  vpc_id      = aws_vpc.flask_app_vpc.id
+}
 
 ###################
 ## VPC Resources ##
