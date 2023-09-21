@@ -122,9 +122,9 @@ resource "aws_ecs_service" "flask_app_svc" {
 ## RDS Resources ##
 ########################
 
-resource "aws_rds_cluster" "example" {
+resource "aws_rds_cluster" "flask_app_db_cluster" {
   cluster_identifier = "example"
-  engine             = "aurora-postgresql"
+  engine             = "aurora-mysql"
   engine_mode        = "provisioned"
   engine_version     = "13.6"
   database_name      = "test"
@@ -137,11 +137,12 @@ resource "aws_rds_cluster" "example" {
   }
 }
 
-resource "aws_rds_cluster_instance" "example" {
-  cluster_identifier = aws_rds_cluster.example.id
+resource "aws_rds_cluster_instance" "flask_app_db" {
+  cluster_identifier = aws_rds_cluster.flask_app_db_cluster.id
+  identifier = "flask-app-rds-cluster"
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.example.engine
-  engine_version     = aws_rds_cluster.example.engine_version
+  engine             = aws_rds_cluster.flask_app_db_cluster.engine
+  engine_version     = aws_rds_cluster.flask_app_db_cluster.engine_version
 }
 
 ###############################
