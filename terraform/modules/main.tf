@@ -132,8 +132,8 @@ resource "aws_rds_cluster" "example" {
   master_password    = "must_be_eight_characters"
 
   scaling_configuration {
-    max_capacity = 1.0
-    min_capacity = 0.5
+    max_capacity = 2
+    min_capacity = 1
   }
 }
 
