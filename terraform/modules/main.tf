@@ -125,7 +125,7 @@ resource "aws_ecs_service" "flask_app_svc" {
 resource "aws_rds_cluster" "example" {
   
   cluster_identifier = "example"
-  engine             = "aurora"
+  engine             = "aurora-mysql"
   engine_mode        = "serverless"
   engine_version     = "8.0"
   database_name      = "test"
