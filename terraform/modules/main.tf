@@ -118,6 +118,25 @@ resource "aws_ecs_service" "flask_app_svc" {
 
 
 
+########################
+## RDS Resources ##
+########################
+
+resource "aws_rds_cluster" "example" {
+  cluster_identifier = "example"
+  engine             = "aurora-mysql"
+  engine_mode        = "serverless"
+  engine_version     = "8.0"
+  database_name      = "test"
+  master_username    = "test"
+  master_password    = "must_be_eight_characters"
+
+  scaling_configuration {
+    max_capacity = 1.0
+    min_capacity = 0.5
+  }
+}
+
 ###############################
 ## Secrets Manager Resources ##
 ###############################
