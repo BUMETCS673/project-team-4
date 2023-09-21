@@ -123,8 +123,9 @@ resource "aws_ecs_service" "flask_app_svc" {
 ########################
 
 resource "aws_rds_cluster" "example" {
+  
   cluster_identifier = "example"
-  engine             = "aurora-mysql"
+  engine             = "aurora"
   engine_mode        = "serverless"
   engine_version     = "8.0"
   database_name      = "test"
@@ -132,8 +133,8 @@ resource "aws_rds_cluster" "example" {
   master_password    = "must_be_eight_characters"
 
   scaling_configuration {
-    max_capacity = 2
-    min_capacity = 1
+    max_capacity = 256
+    min_capacity = 4
   }
 }
 
