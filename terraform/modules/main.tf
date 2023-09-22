@@ -123,13 +123,13 @@ resource "aws_ecs_service" "flask_app_svc" {
 ########################
 
 resource "aws_rds_cluster" "flask_app_db_cluster" {
-  cluster_identifier = "example"
-  engine             = "aurora-mysql"
-  engine_mode        = "provisioned"
-  engine_version     = "8.0.mysql_aurora.3.02.0"
-  database_name      = "test"
-  master_username    = "test"
-  master_password    = "must_be_eight_characters"
+  cluster_identifier     = "example"
+  engine                 = "aurora-mysql"
+  engine_mode            = "provisioned"
+  engine_version         = "8.0.mysql_aurora.3.02.0"
+  database_name          = "test"
+  master_username        = "test"
+  master_password        = "must_be_eight_characters"
   vpc_security_group_ids = ["sg-0beb21e8a9b69f748"]
 
   serverlessv2_scaling_configuration {
@@ -140,10 +140,19 @@ resource "aws_rds_cluster" "flask_app_db_cluster" {
 
 resource "aws_rds_cluster_instance" "flask_app_db" {
   cluster_identifier = aws_rds_cluster.flask_app_db_cluster.id
-  identifier = "flask-app-rds-cluster"
+  identifier         = "flask-app-rds-cluster"
   instance_class     = "db.serverless"
   engine             = aws_rds_cluster.flask_app_db_cluster.engine
   engine_version     = aws_rds_cluster.flask_app_db_cluster.engine_version
+}
+
+resource "aws_db_subnet_group" "flask_app_subnet_group" {
+  name       = "flask-app-subnet-group"
+  subnet_ids = [aws_subnet.flask_app_subnet_1a.id, aws_subnet.flask_app_subnet_1b.id, aws_subnet.flask_app_subnet_1c.id, ]
+
+  tags = {
+    Name = "flask-app-subnet-group"
+  }
 }
 
 ###############################
