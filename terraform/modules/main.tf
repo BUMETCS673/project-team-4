@@ -130,6 +130,7 @@ resource "aws_rds_cluster" "flask_app_db_cluster" {
   database_name      = "test"
   master_username    = "test"
   master_password    = "must_be_eight_characters"
+  vpc_security_group_ids = ["sg-0beb21e8a9b69f748"]
 
   serverlessv2_scaling_configuration {
     max_capacity = 1.0
