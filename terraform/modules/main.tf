@@ -126,7 +126,7 @@ resource "aws_rds_cluster" "flask_app_db_cluster" {
   cluster_identifier = "example"
   engine             = "aurora-mysql"
   engine_mode        = "provisioned"
-  engine_version     = "3.02.0"
+  engine_version     = "8.0.mysql_aurora.3.02.0"
   database_name      = "test"
   master_username    = "test"
   master_password    = "must_be_eight_characters"
