@@ -146,6 +146,7 @@ resource "aws_rds_cluster_instance" "flask_app_db" {
   instance_class       = "db.serverless"
   engine               = aws_rds_cluster.flask_app_db_cluster.engine
   engine_version       = aws_rds_cluster.flask_app_db_cluster.engine_version
+  publicly_accessible = true
 }
 
 resource "aws_db_subnet_group" "flask_app_subnet_group" {
