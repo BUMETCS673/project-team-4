@@ -124,6 +124,7 @@ resource "aws_ecs_service" "flask_app_svc" {
 
 resource "aws_rds_cluster" "flask_app_db_cluster" {
   cluster_identifier     = "flask-app-db-cluster"
+  db_subnet_group_name   = aws_db_subnet_group.flask_app_subnet_group.name
   engine                 = "aurora-mysql"
   engine_mode            = "provisioned"
   engine_version         = "8.0.mysql_aurora.3.02.0"
@@ -139,11 +140,12 @@ resource "aws_rds_cluster" "flask_app_db_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "flask_app_db" {
-  cluster_identifier = aws_rds_cluster.flask_app_db_cluster.id
-  identifier         = "flask-app-rds-cluster"
-  instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.flask_app_db_cluster.engine
-  engine_version     = aws_rds_cluster.flask_app_db_cluster.engine_version
+  cluster_identifier   = aws_rds_cluster.flask_app_db_cluster.id
+  db_subnet_group_name = aws_db_subnet_group.flask_app_subnet_group.name
+  identifier           = "flask-app-rds-cluster"
+  instance_class       = "db.serverless"
+  engine               = aws_rds_cluster.flask_app_db_cluster.engine
+  engine_version       = aws_rds_cluster.flask_app_db_cluster.engine_version
 }
 
 resource "aws_db_subnet_group" "flask_app_subnet_group" {
