@@ -129,8 +129,8 @@ resource "aws_rds_cluster" "flask_app_db_cluster" {
   engine_mode            = "provisioned"
   engine_version         = "8.0.mysql_aurora.3.02.0"
   database_name          = "test"
-  master_username        = "test"
-  master_password        = "must_be_eight_characters"
+  master_username        = "tvbum_admin"
+  master_password        = "od9KN7pOhEV32oz"
   vpc_security_group_ids = [aws_security_group.flask_app_sg.id]
 
   serverlessv2_scaling_configuration {
@@ -188,6 +188,7 @@ resource "aws_vpc" "flask_app_vpc" {
 resource "aws_subnet" "flask_app_subnet_1a" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.1.0/24"
+  map_public_ip_on_launch = true
   vpc_id            = aws_vpc.flask_app_vpc.id
 
   tags = {
@@ -198,6 +199,7 @@ resource "aws_subnet" "flask_app_subnet_1a" {
 resource "aws_subnet" "flask_app_subnet_1b" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.0.2.0/24"
+  map_public_ip_on_launch = true
   vpc_id            = aws_vpc.flask_app_vpc.id
 
   tags = {
@@ -208,6 +210,7 @@ resource "aws_subnet" "flask_app_subnet_1b" {
 resource "aws_subnet" "flask_app_subnet_1c" {
   availability_zone = "us-east-1c"
   cidr_block        = "10.0.3.0/24"
+  map_public_ip_on_launch = true
   vpc_id            = aws_vpc.flask_app_vpc.id
 
   tags = {
