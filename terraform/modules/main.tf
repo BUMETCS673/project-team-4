@@ -123,14 +123,14 @@ resource "aws_ecs_service" "flask_app_svc" {
 ########################
 
 resource "aws_rds_cluster" "flask_app_db_cluster" {
-  cluster_identifier     = "example"
+  cluster_identifier     = "flask-app-db-cluster"
   engine                 = "aurora-mysql"
   engine_mode            = "provisioned"
   engine_version         = "8.0.mysql_aurora.3.02.0"
   database_name          = "test"
   master_username        = "test"
   master_password        = "must_be_eight_characters"
-  vpc_security_group_ids = ["sg-0beb21e8a9b69f748"]
+  vpc_security_group_ids = [aws_security_group.flask_app_sg.id]
 
   serverlessv2_scaling_configuration {
     max_capacity = 1.0
@@ -166,8 +166,8 @@ resource "aws_db_subnet_group" "flask_app_subnet_group" {
 ##############################
 
 resource "aws_security_group" "flask_app_sg" {
-  description = "placeholder"
-  name        = "placeholder"
+  description = "Security group for flask app rds"
+  name        = "flask-app-sg"
   vpc_id      = aws_vpc.flask_app_vpc.id
 }
 
