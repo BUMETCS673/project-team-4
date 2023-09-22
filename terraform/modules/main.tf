@@ -128,7 +128,7 @@ resource "aws_rds_cluster" "flask_app_db_cluster" {
   engine                 = "aurora-mysql"
   engine_mode            = "provisioned"
   engine_version         = "8.0.mysql_aurora.3.02.0"
-  database_name          = "test"
+  database_name          = "flask_app_db"
   master_username        = "tvbum_admin"
   master_password        = "od9KN7pOhEV32oz"
   vpc_security_group_ids = [aws_security_group.flask_app_sg.id]
