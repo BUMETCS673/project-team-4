@@ -180,6 +180,7 @@ resource "aws_security_group" "flask_app_sg" {
 
 resource "aws_vpc" "flask_app_vpc" {
   cidr_block = "10.0.0.0/16"
+  enable_dns_hostnames = true
 
   tags = {
     Name = "flask-app-vpc"
