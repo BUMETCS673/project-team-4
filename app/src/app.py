@@ -17,6 +17,8 @@ def accessPage():
         email = request.form['email']
         password = request.form['password']
     elif request.form['submit'] == 'Register':
+        firstName= request.form['First Name']
+        lastName= request.form['Last Name']
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
