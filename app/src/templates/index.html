@@ -12,9 +12,9 @@
     <div class="container">
         <div class="left">
             <h2>Registration</h2>
-            <form method="POST" action="/register">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required><br>
+            <form method="POST" action="/home">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required><br>
         
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required><br>
@@ -22,19 +22,19 @@
                 <label for="confirm_password">Confirm Password:</label>
                 <input type="password" id="confirm_password" name="confirm_password" required><br>
         
-                <input type="submit" value="Register">
+                <input type="submit" name="submit" value="Register">
             </form>
         </div>
         <div class="right">
             <h2>Login</h2>
-            <form method="POST" action="/login">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required><br>
+            <form method="POST" action="/home">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required><br>
         
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required><br>
         
-                <input type="submit" value="Login">
+                <input type="submit" name="submit" value="Login">
             </form>
         </div>
     </div>
