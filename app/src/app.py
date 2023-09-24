@@ -66,10 +66,10 @@ def display_movies_and_tv_shows():
         print(streaming(search(show['title'])[0]['_id']))
     '''
     popular_movies = showFinder.search_for_item(content_types = ['movie'])['items']
-    print(popular_tv_shows['items'][0]['title'])
+    print(popular_tv_shows[0]['title'])
     return render_template('landing_page.html',
-                           popular_movies = popular_movies['items'],
-                           popular_tv_shows = popular_tv_shows['items'])
+                           popular_movies = popular_movies,
+                           popular_tv_shows = popular_tv_shows)
     '''
     # Fetch a list of popular movies and TV shows (customize as needed)
     popular_movies = tmdb.movie.popular()

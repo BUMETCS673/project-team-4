@@ -17,13 +17,14 @@
             <li class="list-group-item">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <strong>{{tv_show['object_type']}}: {{ movie['title'] }}</strong><br>
+                        <strong>{{movie['object_type']}}: {{ movie['title'] }}</strong><br>
                         Genre: {{ movie['genre'] }}<br>
                         Streaming on: {{ movie['streaming_platform'] }}
                     </div>
                     <!-- You can add additional information here if needed -->
                 </div>
             </li>
+            {% endfor %}
         </ul>
 
         <h2>Popular TV Shows</h2>
