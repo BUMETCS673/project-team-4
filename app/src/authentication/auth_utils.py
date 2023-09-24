@@ -5,11 +5,11 @@ def hash_password(plain_text_password):
     hashed_password = bcrypt.hashpw(plain_text_password.encode('utf-8'), salt)
     return hashed_password
 
+def verify_password(password, hashed_password_from_db):
+    password = password.encode('utf-8')  # Ensure password is bytes
+    hashed_password_from_db = hashed_password_from_db.encode('utf-8')  # Ensure hashed_password_from_db is bytes
+    return bcrypt.checkpw(password, hashed_password_from_db)
 
-def verify_password(password, hashed_password, salt):
-    salted_password = (password + salt).encode('utf-8')
-    hashed_password = hashed_password.encode('utf-8')
-    return bcrypt.checkpw(salted_password, hashed_password)
 
 
 

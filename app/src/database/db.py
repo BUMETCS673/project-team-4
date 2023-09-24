@@ -38,30 +38,28 @@ def insert_user_into_db(first_name, last_name, email, hashed_password):
         return False
 
 
-def fetch_hashed_password_and_salt(email):
+def fetch_hashed_password(email):
     try:
         # Connect to the database
         connection = connect_to_database()
 
-        # Define the SQL query to fetch the hashed password and salt based on email
-        select_query = "SELECT hashed_password, salt FROM users WHERE email = %s"
+        # Define the SQL query to fetch the hashed password based on email
+        select_query = "SELECT hashed_password FROM users WHERE email = %s"
         data = (email,)
 
-        # Execute the SQL query to fetch the hashed password and salt
         cursor = connection.cursor(dictionary=True)
         cursor.execute(select_query, data)
-        
+
         result = cursor.fetchone()
 
-        # Close the cursor and database connection
         cursor.close()
         connection.close()
         if result:
-            return result['hashed_password'], result['salt']
+            return result['hashed_password']
         else:
-            return None, None
+            return None
 
     except Exception as e:
         # Handle any exceptions or errors that may occur during database retrieval
-        print(f"Error fetching hashed password and salt from the database: {str(e)}")
-        return None, None
+        print(f"Error fetching hashed password from the database: {str(e)}")
+        return None

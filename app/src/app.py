@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from themoviedb import aioTMDb
 from authentication.auth_utils import hash_password, verify_password
-from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password_and_salt
+from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password
 
 
 
@@ -20,12 +20,13 @@ def accessPage():
     if request.form['submit'] == 'Login':
         email = request.form['email']
         password = request.form['password']
-        hashed_password_from_db, salt_from_db = fetch_hashed_password_and_salt(email)
+        hashed_password_from_db = fetch_hashed_password(email)
 
-        if hashed_password_from_db and verify_password(password, hashed_password_from_db, salt_from_db):
+        if hashed_password_from_db and verify_password(password, hashed_password_from_db):
             print("Login successful")
         else:
             print("Login failed")
+
 
     elif request.form['submit'] == 'Register':
         firstName= request.form['firstName']
