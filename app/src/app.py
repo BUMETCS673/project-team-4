@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request
 from themoviedb import aioTMDb
+from authentication.auth_utils import hash_password, verify_password
+from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password_and_salt
+
+
 
 app = Flask(__name__)
 
@@ -16,12 +20,33 @@ def accessPage():
     if request.form['submit'] == 'Login':
         email = request.form['email']
         password = request.form['password']
+        hashed_password_from_db, salt_from_db = fetch_hashed_password_and_salt(email)
+
+        if hashed_password_from_db and verify_password(password, hashed_password_from_db, salt_from_db):
+            print("Login successful")
+        else:
+            print("Login failed")
+
     elif request.form['submit'] == 'Register':
-        firstName= request.form['First Name']
-        lastName= request.form['Last Name']
+        firstName= request.form['firstName']
+        lastName= request.form['lastName']
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
+        if confirm_password == password:
+            hashed_password = hash_password(password)
+
+            try:
+                result = insert_user_into_db(firstName, lastName, email, hashed_password)
+                if result:
+                    print("Registration successful")
+                else:
+                    print("Registration failed")
+            except Exception as e:
+                print(f"Error during registration: {str(e)}")
+        else:
+            print("Passowrd didn't match")
+
     display_movies_and_tv_shows()
     return render_template("landing_page.html")
 
