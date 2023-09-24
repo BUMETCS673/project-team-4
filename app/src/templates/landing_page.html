@@ -5,22 +5,42 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>BUMTV</title>
         <link rel="stylesheet" href="static/css/styles.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
+        <div class="container">
         <h1>BUMTV</h1>
 
         <h2>Popular Movies</h2>
-        <ul>
+        <ul class="list-group">
             {% for movie in popular_movies %}
-                <li>{{ movie.title }}</li>
-            {% endfor %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{tv_show['object_type']}}: {{ movie['title'] }}</strong><br>
+                        Genre: {{ movie['genre'] }}<br>
+                        Streaming on: {{ movie['streaming_platform'] }}
+                    </div>
+                    <!-- You can add additional information here if needed -->
+                </div>
+            </li>
         </ul>
 
         <h2>Popular TV Shows</h2>
-        <ul>
+        <ul class="list-group">
             {% for tv_show in popular_tv_shows %}
-                <li>{{ tv_show.name }}</li>
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{tv_show['object_type']}}: {{ tv_show['title'] }}</strong><br>
+                            Genre: {{ tv_show['genre'] }}<br>
+                            Streaming on: {{ tv_show['streaming_platform'] }}
+                        </div>
+                        <!-- You can add additional information here if needed -->
+                    </div>
+                </li>
             {% endfor %}
         </ul>
+    </div>
     </body>
 </html>
