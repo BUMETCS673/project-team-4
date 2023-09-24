@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from themoviedb import aioTMDb
+#from themoviedb import aioTMDb
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password
 
