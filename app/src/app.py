@@ -2,6 +2,10 @@ from flask import Flask, render_template, request
 from themoviedb import TMDb
 from justwatch import JustWatch
 from canistreamit import search, streaming, rental, purchase, dvd, xfinity
+from authentication.auth_utils import hash_password, verify_password
+from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password_and_salt
+
+
 
 app = Flask(__name__)
 
@@ -20,13 +24,41 @@ def accessPage():
     if request.form['submit'] == 'Login':
         email = request.form['email']
         password = request.form['password']
+        hashed_password_from_db, salt_from_db = fetch_hashed_password_and_salt(email)
+
+        if hashed_password_from_db and verify_password(password, hashed_password_from_db, salt_from_db):
+            print("Login successful")
+        else:
+            print("Login failed")
+
     elif request.form['submit'] == 'Register':
-        firstName= request.form['First Name']
-        lastName= request.form['Last Name']
+        firstName= request.form['firstName']
+        lastName= request.form['lastName']
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
-    print("Loading Movie Data")
+        if confirm_password == password:
+            hashed_password = hash_password(password)
+
+            try:
+                result = insert_user_into_db(firstName, lastName, email, hashed_password)
+                if result:
+                    print("Registration successful")
+                else:
+                    print("Registration failed")
+            except Exception as e:
+                print(f"Error during registration: {str(e)}")
+        else:
+            print("Passowrd didn't match")
+
+    display_movies_and_tv_shows()
+    '''return render_template('landing_page.html',
+                           popular_movies = popular_movies['items'],
+                           popular_tv_shows = popular_tv_shows['items'])'''
+
+
+def display_movies_and_tv_shows():
+    print("Loading and get Movie Data")
     popular_tv_shows = showFinder.search_for_item(content_types = ['show'])['items']
     '''
     for show in popular_tv_shows:
@@ -38,17 +70,6 @@ def accessPage():
     return render_template('landing_page.html',
                            popular_movies = popular_movies['items'],
                            popular_tv_shows = popular_tv_shows['items'])
-    #display_movies_and_tv_shows()
-    #return render_template("landing_page.html")
-
-
-def display_movies_and_tv_shows():
-    print("Load and get Movie Data")
-    popular_tv_shows = showFinder.popular_tv_shows(limit=10)
-    popular_movies = showFinder.popular_movies(limit=10)
-    return render_template('landing_page.html',
-                           popular_movies=popular_movies,
-                           popular_tv_shows=popular_tv_shows)
     '''
     # Fetch a list of popular movies and TV shows (customize as needed)
     popular_movies = tmdb.movie.popular()
