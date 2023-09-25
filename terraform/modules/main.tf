@@ -31,7 +31,19 @@ resource "aws_acm_certificate" "domain_cert" {
 ## ALB Resources ##
 ###################
 
+resource "aws_lb" "flask_app_alb" {
+  name               = "flask-app-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.lb_sg.id]
+  subnets            = [aws_subnet.flask_app_subnet_1a.id, aws_subnet.flask_app_subnet_1b.id, aws_subnet.flask_app_subnet_1c.id, ]
 
+  enable_deletion_protection = false
+
+  tags = {
+    Name = "flask-app-alb"
+  }
+}
 
 ##########################
 ## CloudWatch Resources ##
@@ -105,7 +117,15 @@ resource "aws_ecs_service" "flask_app_svc" {
 ## KMS Resources ##
 ###################
 
+resource "aws_kms_key" "flask_app_db_kms" {
+  description             = "flask app db kms"
+  deletion_window_in_days = 10
+}
 
+resource "aws_kms_alias" "flask_app_db_kms_alias" {
+  name          = "alias/my-key-alias"
+  target_key_id = aws_kms_key.flask_app_db_kms.key_id
+}
 
 ######################
 ## Lambda Resources ##
@@ -146,8 +166,8 @@ resource "aws_rds_cluster_instance" "flask_app_db" {
   instance_class       = "db.serverless"
   engine               = aws_rds_cluster.flask_app_db_cluster.engine
   engine_version       = aws_rds_cluster.flask_app_db_cluster.engine_version
-  publicly_accessible = true
-  
+  publicly_accessible  = true
+
 }
 
 resource "aws_db_subnet_group" "flask_app_subnet_group" {
@@ -159,11 +179,32 @@ resource "aws_db_subnet_group" "flask_app_subnet_group" {
   }
 }
 
+resource "aws_db_parameter_group" "flask_app_pg" {
+  name   = "rds-pg"
+  family = "mysql8.0"
+
+  parameter {
+    name  = "character_set_server"
+    value = "utf8"
+  }
+
+  parameter {
+    name  = "character_set_client"
+    value = "utf8"
+  }
+}
+
 ###############################
 ## Secrets Manager Resources ##
 ###############################
 
+resource "aws_secretsmanager_secret" "flask_app_db_user" {
+  name = "flask-app-db-user"
+}
 
+resource "aws_secretsmanager_secret" "flask_app_db_pass" {
+  name = "flask-app-db-pass"
+}
 
 ##############################
 ## Security Group Resources ##
@@ -180,7 +221,7 @@ resource "aws_security_group" "flask_app_sg" {
 ###################
 
 resource "aws_vpc" "flask_app_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
@@ -189,10 +230,10 @@ resource "aws_vpc" "flask_app_vpc" {
 }
 
 resource "aws_subnet" "flask_app_subnet_1a" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
+  cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
-  vpc_id            = aws_vpc.flask_app_vpc.id
+  vpc_id                  = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-subnet-1a"
@@ -200,10 +241,10 @@ resource "aws_subnet" "flask_app_subnet_1a" {
 }
 
 resource "aws_subnet" "flask_app_subnet_1b" {
-  availability_zone = "us-east-1b"
-  cidr_block        = "10.0.2.0/24"
+  availability_zone       = "us-east-1b"
+  cidr_block              = "10.0.2.0/24"
   map_public_ip_on_launch = true
-  vpc_id            = aws_vpc.flask_app_vpc.id
+  vpc_id                  = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-subnet-1b"
@@ -211,10 +252,10 @@ resource "aws_subnet" "flask_app_subnet_1b" {
 }
 
 resource "aws_subnet" "flask_app_subnet_1c" {
-  availability_zone = "us-east-1c"
-  cidr_block        = "10.0.3.0/24"
+  availability_zone       = "us-east-1c"
+  cidr_block              = "10.0.3.0/24"
   map_public_ip_on_launch = true
-  vpc_id            = aws_vpc.flask_app_vpc.id
+  vpc_id                  = aws_vpc.flask_app_vpc.id
 
   tags = {
     Name = "flask-app-subnet-1c"
