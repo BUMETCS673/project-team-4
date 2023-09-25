@@ -57,12 +57,6 @@ resource "aws_lb_target_group" "flask_app_alb_tg" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "test" {
-  target_group_arn = aws_lb_target_group.flask_app_alb_tg.arn
-  target_id        = "10.0.0."
-  port             = 80
-}
-
 ##########################
 ## CloudWatch Resources ##
 ##########################
