@@ -16,7 +16,7 @@ COPY ./app /app
 
 #Install app requirements
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN yum install openssl -y
+RUN dnf install openssl -y
 
 EXPOSE 80
 
