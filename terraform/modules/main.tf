@@ -91,7 +91,7 @@ resource "aws_ecs_task_definition" "flask_app_container_td" {
   container_definitions = jsonencode([
     {
       name  = "flask-app"
-      image = "nginx:latest"
+      image = "622508827640.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest"
 
       essential = true
       portMappings = [
@@ -112,6 +112,12 @@ resource "aws_ecs_service" "flask_app_svc" {
 
   task_definition = aws_ecs_task_definition.flask_app_container_td.arn
 
+  load_balancer {
+    target_group_arn = aws_lb_target_group.flask_app_alb_tg.arn
+    container_name   = "flask-app"
+    container_port   = 80
+  }
+  
   network_configuration {
     assign_public_ip = "true"
     #security_groups = ""  
