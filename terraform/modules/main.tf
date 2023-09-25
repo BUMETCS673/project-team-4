@@ -45,6 +45,24 @@ resource "aws_lb" "flask_app_alb" {
   }
 }
 
+resource "aws_lb_target_group" "flask_app_alb_tg" {
+  name        = "flask-app-alb-tg"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "ip"
+  vpc_id      = aws_vpc.flask_app_vpc.id
+
+  tags = {
+    Name = "flask-app-alb"
+  }
+}
+
+resource "aws_lb_target_group_attachment" "test" {
+  target_group_arn = aws_lb_target_group.flask_app_alb_tg.arn
+  target_id        = "10.0.0."
+  port             = 80
+}
+
 ##########################
 ## CloudWatch Resources ##
 ##########################
