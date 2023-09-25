@@ -35,7 +35,7 @@ resource "aws_lb" "flask_app_alb" {
   name               = "flask-app-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.lb_sg.id]
+  security_groups    = [aws_security_group.flask_app_sg.id]
   subnets            = [aws_subnet.flask_app_subnet_1a.id, aws_subnet.flask_app_subnet_1b.id, aws_subnet.flask_app_subnet_1c.id, ]
 
   enable_deletion_protection = false
