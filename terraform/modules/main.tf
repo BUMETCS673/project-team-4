@@ -117,7 +117,7 @@ resource "aws_ecs_service" "flask_app_svc" {
     container_name   = "flask-app"
     container_port   = 80
   }
-  
+
   network_configuration {
     assign_public_ip = "true"
     #security_groups = ""  

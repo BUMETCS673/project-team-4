@@ -34,3 +34,12 @@ docker run -it image_name:tag sh
 
 ```
 
+- #### Run the application on localhost ([Docker Desktop](https://docs.docker.com/desktop/) must be installed to run the below command):
+(**Note:** Make sure to run the command from the same directory in which the 'docker-compose.yml' file is located.)
+
+```console
+
+docker-compose up --build 
+
+```
+
