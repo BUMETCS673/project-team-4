@@ -3,7 +3,7 @@ name: Static Analysis Security Testing (SAST)
 on:
   push:
     branches:
-          - main
+          - choudhury
 
 jobs:
   bandit_scan:
@@ -22,7 +22,7 @@ jobs:
         run: cd src/app/
         
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r src/app/requirements.txt
 
       - name: Run Bandit SAST scan
         run: bandit -r . -f json -o bandit_report.json
