@@ -3,7 +3,7 @@ name: Static Analysis Security Testing (SAST)
 on:
   push:
     branches:
-          - choudhury
+          - Choudhury
 
 jobs:
   bandit_scan:
