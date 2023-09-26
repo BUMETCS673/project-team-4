@@ -25,7 +25,7 @@ jobs:
           pip install bandit
           
       - name: Run Bandit SAST scan
-        run: bandit -r ${{ github.workspace }}/src/app/ -f json -o bandit_report.json
+        run: bandit -r /src/app/ -f json -o bandit_report.json
 
       - name: Upload Bandit report
         uses: actions/upload-artifact@v2
