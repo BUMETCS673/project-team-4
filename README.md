@@ -4,7 +4,15 @@
 
 ### Project Description
 
-TODO
+BUMTV is a modern web application designed to elevate the way users track, explore, and enjoy their favorite movies and TV shows. With the increasing number of streaming media service platforms, it is becoming more difficult to keep track of movies and TV shows that are released. One solution for this is the easy-to-use BUMTV application, which is built with a secure and user-friendly approach. In addition, it offers a comprehensive set of features to help users seamlessly manage their entertainment choices.
+The following is a list of the important features of this web application:
+Users can… 
+- Create and maintain accounts that implement security features to protect users’ data.
+- Access comprehensive information and reviews. 
+- Discover where to watch content. 
+- Build and maintain watchlists. 
+- Search for movies and TV shows. 
+- Share watchlists with other users.
 
 ### Project Directory Structure
 
