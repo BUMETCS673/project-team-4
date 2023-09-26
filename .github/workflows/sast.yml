@@ -3,7 +3,7 @@ name: Static Analysis Security Testing (SAST)
 on:
   push:
     branches:
-          - main
+      - main
 
 jobs:
   bandit_scan:
@@ -16,16 +16,17 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.11.5
 
-      - name: Navigate to src/app/
-        run: cd src/app/
-        
+      - name: Install Bandit
+        run: pip install bandit
+
       - name: Install dependencies
-        run: pip install -r src/app/requirements.txt
+        run: |
+          pip install -r src/app/requirements.txt
 
       - name: Run Bandit SAST scan
-        run: bandit -r . -f json -o bandit_report.json
+        run: bandit -r src/app -f json -o bandit_report.json
 
       - name: Upload Bandit report
         uses: actions/upload-artifact@v2
