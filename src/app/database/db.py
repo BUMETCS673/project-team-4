@@ -4,7 +4,7 @@ def connect_to_database():
     connection = mysql.connector.connect(
         host='flask-app-rds-cluster.chnoobsehdtd.us-east-1.rds.amazonaws.com',
         user='tvbum_admin',
-        password='od9KN7pOhEV32oz',
+        password=${{ secrets.DB_PASSWORD }},
         database='flask_app_db'
     )
     return connection
