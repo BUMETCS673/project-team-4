@@ -24,16 +24,19 @@ jobs:
 
       - name: Change working directory
         run: cd src/app
-      - name: Debug Info
-        run: |
-          pwd  
-          ls -l  
+    
+      - name: Show current directory
+        run: pwd
+      
+      - name: List contents of src/app
+        run: ls -al
+
 
       - name: Run Bandit SAST scan
-        run: bandit -r /github/workspace/src/app -f json -o /github/workspace/bandit_report.json -ls
+        run: bandit -r src/app -f json -o bandit_report.json -ls
 
-      - name: Upload Bandit report
-        uses: actions/upload-artifact@v2
-        with:
-          name: bandit-report
-          path: bandit_report.json
+     # - name: Upload Bandit report
+      #  uses: actions/upload-artifact@v2
+      #  with:
+         # name: bandit-report
+         # path: bandit_report.json
