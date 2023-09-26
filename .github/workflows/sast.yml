@@ -26,12 +26,10 @@ jobs:
         run: cd src/app
 
       - name: Run Bandit SAST scan
-        run: bandit -r . -f json -o report.json
+        run: bandit -r . -f json -o bandit_report.json
 
-      - name: Upload Bandit Report
-        if: always()
+      - name: Upload Bandit report
         uses: actions/upload-artifact@v2
         with:
           name: bandit-report
-          path: .bandit
-          if-no-files-found: warn
+          path: bandit_report.json
