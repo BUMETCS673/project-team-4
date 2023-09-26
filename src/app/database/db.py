@@ -1,10 +1,13 @@
 import mysql.connector
+import os
+
 
 def connect_to_database():
+    db_password = os.environ.get('DB_PASSWORD')  
     connection = mysql.connector.connect(
         host='flask-app-rds-cluster.chnoobsehdtd.us-east-1.rds.amazonaws.com',
         user='tvbum_admin',
-        password=${{ secrets.DB_PASSWORD }},
+        password=db_password,
         database='flask_app_db'
     )
     return connection
