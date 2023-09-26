@@ -16,25 +16,28 @@ Users can…
 
 ### Project Directory Structure
 
-- #### .github/workflows
+- ##### .github/workflows
 
-Description
+This directory stores the GitHub Action files which create pipelines and run jobs for deploying the application to AWS and creating AWS resources via Terraform IAC files. 
 
-- #### app
+The following GitHub Actions will be used in this project:
 
-Description
+- terraform-plan.yml -> This workflow runs Terraform format, validate, and plan jobs. 
+- terraform-apply.yml -> This workflows runs Terraform apply jobs, which deploy resources to the AWS account. 
 
-- #### documentation
+One additional workflow file will be added that will deploy updated container images to the AWS Elastic Container Registry (ECR). 
 
-Description
+- ##### src
 
-- #### scripts
+This application contains all of the application code along with sql files for the database schema and a Dockerfile for the application container image. There is also a Docker compose file for running the application locally as localhost. 
 
-Description
+- ##### documentation
 
-- #### terraform/modules
+This directory contains all of the application documentation including project management documents. 
 
-Description
+- ##### terraform/modules
+
+This director contains all of the Terraform files which deploy resources and other infrastructure needed for the application to the AWS account.
 
 ### Team Members and Roles
 
@@ -52,13 +55,19 @@ Description
 - [GitHub Project Repo](https://github.com/BUMETCS673/project-team-4)
 - [Jira Project Page](https://cs673.atlassian.net/jira/software/projects/CF1/boards/1)
 
-## Application
-
-TODO
 
 ### Application Architecture
 
-TODO
+The Flask application framework will be utilzied for the application, and the application will be deployed to an AWS account, with following services being used to build out the application: 
+
+- Elastic Container Service (ECS)
+- Elastic Container Registry (ECR)
+- Application Load Balancer (ALB)
+- Virtual Private Cloud (VPC)
+- AWS RDS (Aurora MySQL Serverless v2)
+- Secrets Manager
+- Amazon Certificate Manager (ACM)
+- Key Management Service (KMS)
 
 ### Branching Strategy
 
