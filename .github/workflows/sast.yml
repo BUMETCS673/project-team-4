@@ -26,7 +26,7 @@ jobs:
         run: cd src/app
 
       - name: Run Bandit SAST scan
-        run: bandit -r . -f json -o bandit_report.json
+        run: bandit -r . -f json -o bandit_report.json -ls
 
       - name: Upload Bandit report
         uses: actions/upload-artifact@v2
