@@ -8,7 +8,6 @@ on:
 jobs:
   bandit_scan:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,15 +17,16 @@ jobs:
         with:
           python-version: 3.11.5
 
-      - name: Install Bandit
-        run: pip install bandit
-
       - name: Install dependencies
         run: |
           pip install -r src/app/requirements.txt
+          pip install bandit
+
+      - name: Change working directory
+        run: cd src/app
 
       - name: Run Bandit SAST scan
-        run: bandit -r src/app -f json -o bandit_report.json
+        run: bandit -r . -f json -o bandit_report.json
 
       - name: Upload Bandit report
         uses: actions/upload-artifact@v2
