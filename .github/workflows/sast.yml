@@ -23,12 +23,14 @@ jobs:
           pip install bandit
 
       - name: Run Bandit SAST scan
-        run: bandit -r . -f json -o src/app/bandit_report.json
-      - name: Upload Bandit report
+        run: bandit -r . 
+      - name: Upload Bandit Report
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: bandit-report
-          path: src/app/bandit_report.json
+          path: src/app
+          if-no-files-found: warn
 
 
 
