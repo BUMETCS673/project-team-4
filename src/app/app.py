@@ -65,4 +65,4 @@ async def display_movies_and_tv_shows():
                            popular_tv_shows=popular_tv_shows)
 '''
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
