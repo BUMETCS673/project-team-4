@@ -57,6 +57,35 @@ resource "aws_lb_target_group" "flask_app_alb_tg" {
   }
 }
 
+resource "aws_lb_listener" "flask_app_alb_80" {
+  load_balancer_arn = aws_lb.flask_app_alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "flask_app_alb_443" {
+  load_balancer_arn = aws_lb.flask_app_alb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.flask_app_alb_tg.arn
+  }
+}
+
 ##########################
 ## CloudWatch Resources ##
 ##########################
