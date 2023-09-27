@@ -186,7 +186,7 @@ resource "aws_kms_alias" "flask_app_db_kms_alias" {
 ########################
 
 resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.bum_tv
+  zone_id = data.aws_route53_zone.bum_tv.zone_id
   name    = "bumtelevision.com"
   type    = "A"  
 
