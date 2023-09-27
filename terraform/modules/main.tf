@@ -16,7 +16,7 @@ terraform {
 
 resource "aws_acm_certificate" "domain_cert" {
   domain_name       = "bumtelevision.com"
-  validation_method = "DNS"
+  validation_method = "EMAIL"
 
   tags = {
     Environment = "flask-app-cert"
