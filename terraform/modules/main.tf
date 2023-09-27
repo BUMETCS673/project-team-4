@@ -91,7 +91,6 @@ resource "aws_lb_listener" "flask_app_alb_443" {
 ##########################
 
 
-
 ###################
 ## ECS Resources ##
 ###################
