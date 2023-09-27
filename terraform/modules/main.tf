@@ -188,8 +188,7 @@ resource "aws_kms_alias" "flask_app_db_kms_alias" {
 resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.bum_tv
   name    = "bumtelevision.com"
-  type    = "A"
-  ttl     = 300
+  type    = "A"  
 
   alias {
     name                   = aws_lb.flask_app_alb.dns_name
