@@ -90,7 +90,6 @@ resource "aws_lb_listener" "flask_app_alb_443" {
 ## CloudWatch Resources ##
 ##########################
 
-
 ###################
 ## ECS Resources ##
 ###################
@@ -160,8 +159,6 @@ resource "aws_ecs_service" "flask_app_svc" {
 ## IAM Resources ##
 ###################
 
-
-
 ###################
 ## KMS Resources ##
 ###################
@@ -179,7 +176,6 @@ resource "aws_kms_alias" "flask_app_db_kms_alias" {
 ######################
 ## Lambda Resources ##
 ######################
-
 
 ########################
 ## Route-53 Resources ##
