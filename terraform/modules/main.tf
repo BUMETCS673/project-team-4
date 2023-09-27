@@ -137,8 +137,11 @@ resource "aws_ecs_service" "flask_app_svc" {
   cluster       = aws_ecs_cluster.flask_cluster.id
   desired_count = 1
   launch_type   = "FARGATE"
-
   task_definition = aws_ecs_task_definition.flask_app_container_td.arn
+
+  depends_on = [
+    aws_lb.flask_app_alb
+  ]
 
   load_balancer {
     target_group_arn = aws_lb_target_group.flask_app_alb_tg.arn
@@ -182,7 +185,13 @@ resource "aws_kms_alias" "flask_app_db_kms_alias" {
 ## Route-53 Resources ##
 ########################
 
-
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.bum_tv
+  name    = "bumtelevision.com"
+  type    = "A"
+  ttl     = 300
+  records = [aws_eip.lb.public_ip]
+}
 
 ########################
 ## RDS Resources ##
