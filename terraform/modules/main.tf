@@ -133,10 +133,10 @@ resource "aws_ecs_task_definition" "flask_app_container_td" {
 }
 
 resource "aws_ecs_service" "flask_app_svc" {
-  name          = "flask-app-svc"
-  cluster       = aws_ecs_cluster.flask_cluster.id
-  desired_count = 1
-  launch_type   = "FARGATE"
+  name            = "flask-app-svc"
+  cluster         = aws_ecs_cluster.flask_cluster.id
+  desired_count   = 1
+  launch_type     = "FARGATE"
   task_definition = aws_ecs_task_definition.flask_app_container_td.arn
 
   depends_on = [
@@ -190,7 +190,13 @@ resource "aws_route53_record" "www" {
   name    = "bumtelevision.com"
   type    = "A"
   ttl     = 300
-  records = [aws_eip.lb.public_ip]
+
+  alias {
+    name                   = aws_lb.flask_app_alb.dns_name
+    zone_id                = aws_lb.flask_app_alb.zone_id
+    evaluate_target_health = true
+  }
+
 }
 
 ########################
