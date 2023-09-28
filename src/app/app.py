@@ -1,15 +1,18 @@
-from flask import Flask, render_template, request,flash
+from flask import Flask, render_template, request,flash,redirect,url_for
 from themoviedb import TMDb
 from justwatch import JustWatch
 from canistreamit import search, streaming, rental, purchase, dvd, xfinity
 from authentication.auth_utils import hash_password, verify_password
-from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password
+from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password,getValidationCode,alterValidationState
 from validation import RegistrationForm
+from verifymail import send_email,verification_code,VerifyCodeForm
 
 
 
 app = Flask(__name__)
 app.secret_key="random string"
+sender = "huangzhe406@gmail.com"
+emailpassword = "mguvsoybbnterbkj"
 
 #tmdb = TMDb(api_key='API Key when we recieve one')
 
@@ -45,23 +48,43 @@ def accessPage():
         confirm_password = request.form['confirm_password']
         if form.validate():
             hashed_password = hash_password(password)
-
+            vercode=verification_code()
             try:
-                result = insert_user_into_db(firstName, lastName, email, hashed_password)
+                result = insert_user_into_db(firstName, lastName, email, hashed_password,vercode)
                 if result:
-                    flash("Registration successful")
+                    if not send_email(subject='Verified Code',body=vercode, sender=sender, recipients=[email,], password=emailpassword):
+                        print('err')
+                    return redirect(url_for('verify'))
                 else:
                     flash("Registration failed, database is busy now")
             except Exception as e:
                 print(f"Error during registration: {str(e)}")
         else:
-            return render_template('index.html',form=form,errors=err)
+            return render_template('index.html',errors=err)
 
     display_movies_and_tv_shows()
     '''return render_template('landing_page.html',
                            popular_movies = popular_movies['items'],
                            popular_tv_shows = popular_tv_shows['items'])'''
     return render_template('index.html',form=form,errors=err)
+
+@app.route('/verify', methods=['GET', 'POST'])
+def verify():
+    form=VerifyCodeForm(request.form)
+    err={}
+    if request.method == 'POST':
+    # if request.form['submit'] == 'Verify':
+        # return render_template('verify.html',errors=err)
+        userVerCode=request.form['verifycode']
+        userEmail=request.form['email']
+        dbVerCode=getValidationCode(userEmail)[0]
+        if userVerCode==dbVerCode:
+            alterValidationState(email=userEmail)
+            return render_template('index.html',errors=err)
+        else:
+            flash("Verified code is incorrect!")
+            return redirect(url_for('verify'))
+    return render_template('verify.html',errors=err)
 
 
 def display_movies_and_tv_shows():
