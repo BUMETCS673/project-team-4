@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
-#from themoviedb import aioTMDb
+from themoviedb import TMDb
+from justwatch import JustWatch
+from canistreamit import search, streaming, rental, purchase, dvd, xfinity
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password
 
@@ -8,7 +10,9 @@ from database.db import connect_to_database, execute_query, insert_user_into_db,
 app = Flask(__name__)
 
 
-#tmdb = aioTMDb(api_key='API Key when we recieve one')
+#tmdb = TMDb(api_key='API Key when we recieve one')
+
+showFinder= JustWatch(country='US')
 
 @app.route('/')
 def main():
@@ -49,11 +53,24 @@ def accessPage():
             print("Passowrd didn't match")
 
     display_movies_and_tv_shows()
-    return render_template("landing_page.html")
+    '''return render_template('landing_page.html',
+                           popular_movies = popular_movies['items'],
+                           popular_tv_shows = popular_tv_shows['items'])'''
 
 
-async def display_movies_and_tv_shows():
-    print("Load and get Movie Data")
+def display_movies_and_tv_shows():
+    print("Loading and get Movie Data")
+    popular_tv_shows = showFinder.search_for_item(content_types = ['show'])['items']
+    '''
+    for show in popular_tv_shows:
+        print(search(show['title']))
+        print(streaming(search(show['title'])[0]['_id']))
+    '''
+    popular_movies = showFinder.search_for_item(content_types = ['movie'])['items']
+    print(popular_tv_shows[0]['title'])
+    return render_template('landing_page.html',
+                           popular_movies = popular_movies,
+                           popular_tv_shows = popular_tv_shows)
     '''
     # Fetch a list of popular movies and TV shows (customize as needed)
     popular_movies = tmdb.movie.popular()
