@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,flash
 from themoviedb import TMDb
 from justwatch import JustWatch
 from canistreamit import search, streaming, rental, purchase, dvd, xfinity
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password
+from validation import RegistrationForm
 
 
 
 app = Flask(__name__)
-
+app.secret_key="random string"
 
 #tmdb = TMDb(api_key='API Key when we recieve one')
 
@@ -16,20 +17,24 @@ showFinder= JustWatch(country='US')
 
 @app.route('/')
 def main():
-    return render_template('index.html')
+    form = RegistrationForm(request.form)
+    err={"email":[],"password":[],"confirm_password":[]}
+    return render_template('index.html',form=form,errors=err)
 
 @app.route('/home', methods=['GET','POST'])
 def accessPage():
-    print(request.form['submit'])
+    # print(request.form['submit'])
+    form = RegistrationForm(request.form)
+    err={"email":[],"password":[],"confirm_password":[]}
     if request.form['submit'] == 'Login':
         email = request.form['email']
         password = request.form['password']
         hashed_password_from_db = fetch_hashed_password(email)
 
         if hashed_password_from_db and verify_password(password, hashed_password_from_db):
-            print("Login successful")
+            flash("Login successful")
         else:
-            print("Login failed")
+            flash("Login failed")
 
 
     elif request.form['submit'] == 'Register':
@@ -38,24 +43,25 @@ def accessPage():
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
-        if confirm_password == password:
+        if form.validate():
             hashed_password = hash_password(password)
 
             try:
                 result = insert_user_into_db(firstName, lastName, email, hashed_password)
                 if result:
-                    print("Registration successful")
+                    flash("Registration successful")
                 else:
-                    print("Registration failed")
+                    flash("Registration failed, database is busy now")
             except Exception as e:
                 print(f"Error during registration: {str(e)}")
         else:
-            print("Passowrd didn't match")
+            return render_template('index.html',form=form,errors=err)
 
     display_movies_and_tv_shows()
     '''return render_template('landing_page.html',
                            popular_movies = popular_movies['items'],
                            popular_tv_shows = popular_tv_shows['items'])'''
+    return render_template('index.html',form=form,errors=err)
 
 
 def display_movies_and_tv_shows():
