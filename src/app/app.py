@@ -10,7 +10,7 @@ from database.db import connect_to_database, execute_query, insert_user_into_db,
 app = Flask(__name__)
 
 
-#tmdb = TMDb(api_key='API Key when we recieve one')
+tmdb = TMDb(key='17766171d7b3067ced648bfe2ddc2a09')
 
 showFinder= JustWatch(country='US')
 
@@ -19,7 +19,7 @@ def main():
     return render_template('index.html')
 
 @app.route('/home', methods=['GET','POST'])
-def accessPage():
+def landingPage():
     print(request.form['submit'])
     if request.form['submit'] == 'Login':
         email = request.form['email']
@@ -50,36 +50,44 @@ def accessPage():
             except Exception as e:
                 print(f"Error during registration: {str(e)}")
         else:
-            print("Passowrd didn't match")
+            print("Password didn't match")
+    
+    popular_movies, popular_tv_shows = display_movies_and_tv_shows()
+    return render_template('landing_page.html',
+                           popular_movies = popular_movies,
+                           popular_tv_shows = popular_tv_shows)
+    
+@app.route('/profile', methods=['GET','POST'])
+def profilePage():
+    # TEST VALUES
+    user_name = "John Doe"  # Replace with the user's actual name
+    user_email = "john.doe@example.com"  # Replace with the user's actual email
+    watch_list = [
+        {"title": "Movie 1"},
+        {"title": "Movie 2"},
+    ]
 
-    display_movies_and_tv_shows()
-    '''return render_template('landing_page.html',
-                           popular_movies = popular_movies['items'],
-                           popular_tv_shows = popular_tv_shows['items'])'''
-
+    return render_template('profile_page.html', user_name=user_name, 
+                           user_email=user_email, 
+                           watch_list=watch_list)
 
 def display_movies_and_tv_shows():
     print("Loading and get Movie Data")
-    popular_tv_shows = showFinder.search_for_item(content_types = ['show'])['items']
+    popular_tv_shows = tmdb.trending().tv_weekly().results
+    #popular_tv_shows = showFinder.search_for_item(content_types = ['show'])['items']
     '''
     for show in popular_tv_shows:
         print(search(show['title']))
         print(streaming(search(show['title'])[0]['_id']))
     '''
-    popular_movies = showFinder.search_for_item(content_types = ['movie'])['items']
-    print(popular_tv_shows[0]['title'])
-    return render_template('landing_page.html',
-                           popular_movies = popular_movies,
-                           popular_tv_shows = popular_tv_shows)
-    '''
-    # Fetch a list of popular movies and TV shows (customize as needed)
-    popular_movies = tmdb.movie.popular()
-    popular_tv_shows = tmdb.tv.popular()
+    popular_movies = tmdb.trending().movie_weekly().results
+    #popular_movies = showFinder.search_for_item(content_types = ['movie'])['items']
+    print(popular_movies[0].overview)
+    popular_movies= popular_movies
+    popular_tv_shows = popular_tv_shows
+    return popular_movies, popular_tv_shows 
 
-    # Pass the data to your HTML template
-    return render_template('landing_page.html',
-                           popular_movies=popular_movies,
-                           popular_tv_shows=popular_tv_shows)
-'''
+
 if __name__ == '__main__':
+    app.jinja_env.cache = {}
     app.run()
