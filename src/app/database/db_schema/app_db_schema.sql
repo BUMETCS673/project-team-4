@@ -29,3 +29,9 @@ CREATE TABLE shares (
   review_id INT NOT NULL,
   FOREIGN KEY (review_id) REFERENCES reviews(review_id)
 );
+
+ALTER TABLE users
+ADD COLUMN validationcode VARCHAR(6) AFTER hashed_password;
+
+ALTER TABLE users
+ADD COLUMN isvalidation TINYINT(1) AFTER validationcode;

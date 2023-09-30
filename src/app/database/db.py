@@ -1,5 +1,6 @@
 import mysql.connector
 import os
+import pymysql
 
 
 def connect_to_database():
@@ -8,6 +9,16 @@ def connect_to_database():
         host='flask-app-rds-cluster.chnoobsehdtd.us-east-1.rds.amazonaws.com',
         user='tvbum_admin',
         password=db_password,
+        database='flask_app_db'
+    )
+    return connection
+
+def connect_to_database2():# This is python3 vision, mysql lib can not be used in python3
+    # db_password = os.environ.get('DB_PASSWORD')  
+    connection = pymysql.connect(
+        host='flask-app-rds-cluster.chnoobsehdtd.us-east-1.rds.amazonaws.com',
+        user='tvbum_admin',
+        password='od9KN7pOhEV32oz',
         database='flask_app_db'
     )
     return connection
@@ -64,5 +75,66 @@ def fetch_hashed_password(email):
 
     except Exception as e:
         # Handle any exceptions or errors that may occur during database retrieval
+        print(f"Error fetching hashed password from the database: {str(e)}")
+        return None
+
+def isAccountVerified(email):
+    try:
+        connection = connect_to_database2()
+        
+        select_query="select isvalidation from users where email = %s"
+        data=(email,)
+
+        cursor = connection.cursor()
+        cursor.execute(select_query, data)
+
+        result= cursor.fetchone()
+
+        cursor.close()
+        connection.close()
+        if result:
+            return result
+        else:
+            return None
+    except Exception as e:
+        print(f"Error fetching hashed password from the database: {str(e)}")
+        return None
+
+def getValidationCode(email):
+    try:
+        connection = connect_to_database2()
+        
+        select_query="select validationcode from users where email = %s"
+        data=(email,)
+
+        cursor = connection.cursor()
+        cursor.execute(select_query, data)
+
+        result= cursor.fetchone()
+
+        cursor.close()
+        connection.close()
+        if result:
+            return result
+        else:
+            return None
+    except Exception as e:
+        print(f"Error fetching hashed password from the database: {str(e)}")
+        return None
+    
+def alterValidationState(email):
+    try:
+        connection = connect_to_database2()
+        
+        updata_query="UPDATE users SET isvalidation=true WHERE email = %s"
+        data=(email,)
+
+        cursor = connection.cursor()
+        cursor.execute(updata_query, data)
+
+        cursor.close()
+        connection.commit()
+        connection.close()
+    except Exception as e:
         print(f"Error fetching hashed password from the database: {str(e)}")
         return None
