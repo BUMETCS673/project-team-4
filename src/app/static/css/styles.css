@@ -1,15 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+
 body {
 
-    background-color: lightskyblue;
+    background-color: rgb(170, 208, 226);
+    border: .05em solid black;
+    display: flex;
+    flex-direction: column;
     font-family: Arial, sans-serif;
-    margin-left: 7.5em;
-    margin-top: -1.25em;
+    margin: auto;
+    min-height: 70vh;
+
     padding: 2em;
-    width: 100em;
+    width: 80em;
 }
 
 html {
     background-color: gray;
+    height: 85em;
 }
 
 .container {
@@ -22,7 +32,7 @@ html {
 .left {
     width: 40em;
     background-color: #fff;
-    margin-top: 3.5em;
+    margin-top: 3.75em;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

@@ -134,7 +134,7 @@ resource "aws_ecs_task_definition" "flask_app_container_td" {
 resource "aws_ecs_service" "flask_app_svc" {
   name            = "flask-app-svc"
   cluster         = aws_ecs_cluster.flask_cluster.id
-  desired_count   = 1
+  desired_count   = 1000
   launch_type     = "FARGATE"
   task_definition = aws_ecs_task_definition.flask_app_container_td.arn
 
@@ -154,6 +154,7 @@ resource "aws_ecs_service" "flask_app_svc" {
     subnets = [aws_subnet.flask_app_subnet_1a.id]
   }
 }
+
 
 ###################
 ## IAM Resources ##
@@ -354,3 +355,4 @@ resource "aws_route" "flask_app_route_igw" {
   gateway_id             = aws_internet_gateway.flask_app_igw.id
   route_table_id         = aws_route_table.flask_app_route_table.id
 }
+

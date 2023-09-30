@@ -16,6 +16,9 @@
       {% endfor %}
    {% endif %}
 {% endwith %}
+    <center>
+        <h1>BUMTV - Logo will go here</h1>
+    </center>
     <div class="container">
         <div class="left">
             <h2>Registration</h2>
@@ -28,6 +31,7 @@
                     {% endfor %}
                     {%endif%}
                 <br>
+              
                 <label for="lastName">Last Name:</label>
                 <input type="text" id="lastName" name="lastName" required>
                 {%if errors.lastName!=Null%}
