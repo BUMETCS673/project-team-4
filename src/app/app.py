@@ -1,18 +1,10 @@
 from flask import Flask, render_template, request
-from themoviedb import TMDb
-from justwatch import JustWatch
-from canistreamit import search, streaming, rental, purchase, dvd, xfinity
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password
-
+from businessLogic.movieSearch import get_popular
 
 
 app = Flask(__name__)
-
-
-tmdb = TMDb(key='17766171d7b3067ced648bfe2ddc2a09')
-
-showFinder= JustWatch(country='US')
 
 @app.route('/')
 def main():
@@ -52,7 +44,7 @@ def landingPage():
         else:
             print("Password didn't match")
     
-    popular_movies, popular_tv_shows = display_movies_and_tv_shows()
+    popular_movies, popular_tv_shows = get_popular()
     return render_template('landing_page.html',
                            popular_movies = popular_movies,
                            popular_tv_shows = popular_tv_shows)
@@ -70,22 +62,6 @@ def profilePage():
     return render_template('profile_page.html', user_name=user_name, 
                            user_email=user_email, 
                            watch_list=watch_list)
-
-def display_movies_and_tv_shows():
-    print("Loading and get Movie Data")
-    popular_tv_shows = tmdb.trending().tv_weekly().results
-    #popular_tv_shows = showFinder.search_for_item(content_types = ['show'])['items']
-    '''
-    for show in popular_tv_shows:
-        print(search(show['title']))
-        print(streaming(search(show['title'])[0]['_id']))
-    '''
-    popular_movies = tmdb.trending().movie_weekly().results
-    #popular_movies = showFinder.search_for_item(content_types = ['movie'])['items']
-    print(popular_movies[0].overview)
-    popular_movies= popular_movies
-    popular_tv_shows = popular_tv_shows
-    return popular_movies, popular_tv_shows 
 
 
 if __name__ == '__main__':
