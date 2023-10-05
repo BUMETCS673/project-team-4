@@ -1,22 +1,15 @@
-from flask import Flask, render_template, request,flash,redirect,url_for
-from themoviedb import TMDb
-from justwatch import JustWatch
-from canistreamit import search, streaming, rental, purchase, dvd, xfinity
+from flask import Flask, render_template, request
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password,getValidationCode,alterValidationState
+from businessLogic.movieSearch import get_popular
 from validation import RegistrationForm
 from verifymail import send_email,verification_code,VerifyCodeForm
-
 
 
 app = Flask(__name__)
 app.secret_key="random string"
 sender = "huangzhe406@gmail.com"
 emailpassword = "mguvsoybbnterbkj"
-
-#tmdb = TMDb(api_key='API Key when we recieve one')
-
-showFinder= JustWatch(country='US')
 
 @app.route('/')
 def main():
@@ -91,27 +84,26 @@ def verify():
 
 
 def display_movies_and_tv_shows():
-    print("Loading and get Movie Data")
-    popular_tv_shows = showFinder.search_for_item(content_types = ['show'])['items']
-    '''
-    for show in popular_tv_shows:
-        print(search(show['title']))
-        print(streaming(search(show['title'])[0]['_id']))
-    '''
-    popular_movies = showFinder.search_for_item(content_types = ['movie'])['items']
-    print(popular_tv_shows[0]['title'])
+    popular_movies, popular_tv_shows = get_popular()
     return render_template('landing_page.html',
                            popular_movies = popular_movies,
                            popular_tv_shows = popular_tv_shows)
-    '''
-    # Fetch a list of popular movies and TV shows (customize as needed)
-    popular_movies = tmdb.movie.popular()
-    popular_tv_shows = tmdb.tv.popular()
+    
+@app.route('/profile', methods=['GET','POST'])
+def profilePage():
+    # TEST VALUES
+    user_name = "John Doe"  # Replace with the user's actual name
+    user_email = "john.doe@example.com"  # Replace with the user's actual email
+    watch_list = [
+        {"title": "Movie 1"},
+        {"title": "Movie 2"},
+    ]
 
-    # Pass the data to your HTML template
-    return render_template('landing_page.html',
-                           popular_movies=popular_movies,
-                           popular_tv_shows=popular_tv_shows)
-'''
+    return render_template('profile_page.html', user_name=user_name, 
+                           user_email=user_email, 
+                           watch_list=watch_list)
+
+
 if __name__ == '__main__':
+    app.jinja_env.cache = {}
     app.run()
