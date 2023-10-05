@@ -41,6 +41,9 @@ def accessPage():
 
 
     elif request.form['submit'] == 'Register':
+        if not form.validate():
+            print(form.errors)
+            return render_template('index.html',errors=form.errors)
         firstName= request.form['firstName']
         lastName= request.form['lastName']
         email = request.form['email']
