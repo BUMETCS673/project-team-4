@@ -34,12 +34,29 @@ def execute_query(connection, query, params=None):
     finally:
         cursor.close()
 
-def insert_user_into_db(first_name, last_name, email, hashed_password):
+# def insert_user_into_db(first_name, last_name, email, hashed_password):
+#     try:
+#         # Connect to the database
+#         connection = connect_to_database()
+#         insert_query = "INSERT INTO users (first_name, last_name, email, hashed_password) VALUES (%s, %s, %s, %s)"
+#         data = (first_name, last_name, email, hashed_password)
+#         # Execute the SQL query to insert the user data
+#         execute_query(connection, insert_query, data)
+#         connection.commit()
+#         connection.close()
+#         return True
+
+#     except Exception as e:
+#         # Handle any exceptions 
+#         print(f"Error inserting user data into the database: {str(e)}")
+#         return False
+
+def insert_user_into_db(first_name, last_name, email, hashed_password,validationcode):
     try:
         # Connect to the database
-        connection = connect_to_database()
-        insert_query = "INSERT INTO users (first_name, last_name, email, hashed_password) VALUES (%s, %s, %s, %s)"
-        data = (first_name, last_name, email, hashed_password)
+        connection = connect_to_database2()
+        insert_query = "INSERT INTO users (first_name, last_name, email, hashed_password, validationcode, isvalidation) VALUES (%s, %s, %s, %s, %s, %s)"
+        data = (first_name, last_name, email, hashed_password,validationcode,0)
         # Execute the SQL query to insert the user data
         execute_query(connection, insert_query, data)
         connection.commit()
