@@ -93,6 +93,12 @@ def display_movies_and_tv_shows():
 @app.route('/landing-page', methods=['GET', 'POST'])
 def landingPage():
     popular_movies, popular_tv_shows = get_popular()
+    return landingPage()
+    
+    
+@app.route('/landing-page', methods=['GET', 'POST'])
+def landingPage():
+    popular_movies, popular_tv_shows = get_popular()
     return render_template('landing_page.html',
                            popular_movies = popular_movies,
                            popular_tv_shows = popular_tv_shows)
