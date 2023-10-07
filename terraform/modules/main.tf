@@ -155,6 +155,7 @@ resource "aws_ecs_service" "flask_app_svc" {
   }
 }
 
+
 ###################
 ## IAM Resources ##
 ###################
