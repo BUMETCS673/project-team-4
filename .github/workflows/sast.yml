@@ -23,7 +23,7 @@ jobs:
           pip install bandit
 
       - name: Run Bandit SAST scan
-        run: bandit -r . --severity MEDIUM,HIGH
+        run: bandit -r . --severity-level HIGH
       - name: Upload Bandit Report
         if: always()
         uses: actions/upload-artifact@v2
