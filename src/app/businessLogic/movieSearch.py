@@ -1,3 +1,4 @@
+import requests
 from themoviedb import TMDb
 from justwatch import JustWatch
 from canistreamit import search, streaming, rental, purchase, dvd, xfinity
@@ -20,3 +21,43 @@ def get_popular():
     popular_movies= popular_movies
     popular_tv_shows = popular_tv_shows
     return popular_movies, popular_tv_shows 
+
+def search_movies_and_tv_shows(query):
+    url = 'https://api.themoviedb.org/3/search/multi'
+    params = {
+        'include_adult': 'false',
+        'language': 'en-US',
+        'page': 1,
+        'query': query,  
+        'api_key': '17766171d7b3067ced648bfe2ddc2a09',  # Replace with your TMDb API key
+    }
+
+    headers = {
+        'Accept': 'application/json',
+    }
+
+    try:
+        response = requests.get(url, params=params, headers=headers)
+
+        if response.status_code == 200:
+            data = response.json()
+            formatted_results = []
+
+            for result in data['results']:
+                if result['media_type'] in ['movie', 'tv']:
+                    formatted_result = {
+                        'title': result['title'] if result['media_type'] == 'movie' else result['name'],
+                        'overview': result['overview'],
+                        'release_date': result['release_date'] if result['media_type'] == 'movie' else None,
+                        'poster_path': result['poster_path']
+                        # Add more fields as needed
+                    }
+                    formatted_results.append(formatted_result)
+
+            return formatted_results
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+            return []
+    except Exception as e:
+        print(f"Error while searching movies and TV shows: {str(e)}")
+        return []

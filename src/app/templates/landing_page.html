@@ -28,6 +28,14 @@
         </style>
     </head>
     <body>
+        <header>
+            <div class="search-bar">
+                <form method="GET" action="{{ url_for('search_results') }}">
+                    <input type="text" name="query" placeholder="Search for movies and TV shows">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </header>
         <div class="container">
             <form method="POST" action={{url_for('profilePage')}}>
                 <input type="submit" class="form-control user-profile-icon user-profile-button" value="User" readonly>

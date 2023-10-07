@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, url_for, redirect
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password,getValidationCode,alterValidationState
-from businessLogic.movieSearch import get_popular
+from businessLogic.movieSearch import get_popular, search_movies_and_tv_shows
 from validation import RegistrationForm
 from verifymail import send_email,verification_code,VerifyCodeForm
 
@@ -96,6 +96,14 @@ def landingPage():
     return render_template('landing_page.html',
                            popular_movies = popular_movies,
                            popular_tv_shows = popular_tv_shows)
+
+@app.route('/search')
+def search_results():
+    query = request.args.get('query')  
+    
+    search_results = search_movies_and_tv_shows(query)
+    
+    return render_template('search_results.html', query=query, results=search_results)
     
 @app.route('/profile', methods=['GET','POST'])
 def profilePage():
