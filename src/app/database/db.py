@@ -1,27 +1,16 @@
 import mysql.connector
 import os
-import pymysql
-
 
 def connect_to_database():
     db_password = os.environ.get('DB_PASSWORD')  
-    connection = mysql.connector.connect(
-        host='flask-app-rds-cluster.chnoobsehdtd.us-east-1.rds.amazonaws.com',
-        user='tvbum_admin',
-        password=db_password,
-        database='flask_app_db'
-    )
-    return connection
-
-def connect_to_database2():# This is python3 vision, mysql lib can not be used in python3
-    # db_password = os.environ.get('DB_PASSWORD')  
-    connection = pymysql.connect(
+    connection = mysql.connector.connect( #mysql.connector is python3, pysql was from python2. use pip3 install mysql-connector-python
         host='flask-app-rds-cluster.chnoobsehdtd.us-east-1.rds.amazonaws.com',
         user='tvbum_admin',
         password='od9KN7pOhEV32oz',
         database='flask_app_db'
     )
     return connection
+
 
 def execute_query(connection, query, params=None):
     cursor = connection.cursor()
@@ -54,7 +43,7 @@ def execute_query(connection, query, params=None):
 def insert_user_into_db(first_name, last_name, email, hashed_password,validationcode):
     try:
         # Connect to the database
-        connection = connect_to_database2()
+        connection = connect_to_database()
         insert_query = "INSERT INTO users (first_name, last_name, email, hashed_password, validationcode, isvalidation) VALUES (%s, %s, %s, %s, %s, %s)"
         data = (first_name, last_name, email, hashed_password,validationcode,0)
         # Execute the SQL query to insert the user data
@@ -97,7 +86,7 @@ def fetch_hashed_password(email):
 
 def isAccountVerified(email):
     try:
-        connection = connect_to_database2()
+        connection = connect_to_database()
         
         select_query="select isvalidation from users where email = %s"
         data=(email,)
@@ -114,12 +103,12 @@ def isAccountVerified(email):
         else:
             return None
     except Exception as e:
-        print(f"Error fetching hashed password from the database: {str(e)}")
+        print(f"Error fetching isvalidion from db: {str(e)}")
         return None
 
 def getValidationCode(email):
     try:
-        connection = connect_to_database2()
+        connection = connect_to_database()
         
         select_query="select validationcode from users where email = %s"
         data=(email,)
@@ -136,12 +125,12 @@ def getValidationCode(email):
         else:
             return None
     except Exception as e:
-        print(f"Error fetching hashed password from the database: {str(e)}")
+        print(f"Error getting validation code from db: {str(e)}")
         return None
     
 def alterValidationState(email):
     try:
-        connection = connect_to_database2()
+        connection = connect_to_database()
         
         updata_query="UPDATE users SET isvalidation=true WHERE email = %s"
         data=(email,)
@@ -153,5 +142,5 @@ def alterValidationState(email):
         connection.commit()
         connection.close()
     except Exception as e:
-        print(f"Error fetching hashed password from the database: {str(e)}")
+        print(f"Error altering validation code in db: {str(e)}")
         return None
