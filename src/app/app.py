@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, url_for, redirect
 from authentication.auth_utils import hash_password, verify_password
 from database.db import connect_to_database, execute_query, insert_user_into_db,fetch_hashed_password,getValidationCode,alterValidationState
 from businessLogic.movieSearch import get_popular
@@ -29,6 +29,7 @@ def accessPage():
 
         if hashed_password_from_db and verify_password(password, hashed_password_from_db):
             flash("Login successful")
+            return display_movies_and_tv_shows()
         else:
             flash("Login failed")
 
@@ -58,7 +59,7 @@ def accessPage():
         else:
             return render_template('index.html',errors=err)
 
-    display_movies_and_tv_shows()
+    # display_movies_and_tv_shows()
     '''return render_template('landing_page.html',
                            popular_movies = popular_movies['items'],
                            popular_tv_shows = popular_tv_shows['items'])'''
@@ -76,7 +77,8 @@ def verify():
         dbVerCode=getValidationCode(userEmail)[0]
         if userVerCode==dbVerCode:
             alterValidationState(email=userEmail)
-            return render_template('index.html',errors=err)
+            # return render_template('index.html',errors=err)
+            return display_movies_and_tv_shows()
         else:
             flash("Verified code is incorrect!")
             return redirect(url_for('verify'))
