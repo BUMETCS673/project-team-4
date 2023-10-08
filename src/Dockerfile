@@ -7,6 +7,7 @@ RUN dnf update -y
 #Install python and pip
 RUN dnf install python3.11 -y
 RUN dnf install python3.11-pip -y
+RUN dnf install ncurses -y
 RUN python3 --version
 RUN pip3 --version
 
