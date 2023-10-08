@@ -26,7 +26,7 @@ def login(email,password,err):
             # flash("Password error!")
             return render_template('index.html',errors=login_errors)
     else:
-        login_errors={"loginemail":["Email address has not been used to register, please try another email address!"]}
+        login_errors={"loginemail":["Email address has not been used to register, please registor first!"]}
         login_errors.update(err)
         # flash("Email address has not been used to register, please registor first!")
         return render_template('index.html',errors=login_errors)
@@ -45,7 +45,7 @@ def register(firstName,lastName,email,password,err):
                 return render_template('index.html',errors=err)
         else:
             # flash("This email address is used, try another email address!")
-            login_errors={"email":["Email address has not been used to register, please registor first!"]}
+            login_errors={"email":["This email address is used, try another email address!"]}
             return render_template('index.html',errors=login_errors)
     except Exception as e:
         print(f"Error during registration: {str(e)}")

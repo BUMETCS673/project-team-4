@@ -7,6 +7,7 @@ from verifymail import send_email,verification_code,VerifyCodeForm
 from authentication.appControl import login,register,verification
 
 
+
 app = Flask(__name__)
 app.secret_key="random string"
 sender = "huangzhe406@gmail.com"
