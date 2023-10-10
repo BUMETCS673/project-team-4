@@ -16,19 +16,16 @@ def login(email,password,err):
         if flag[0]==0:
             login_errors={"loginemail":["Email address has not been veirfied!",]}
             login_errors.update(err)
-            # flash("Email address has not been veirfied !")
             return render_template('index.html',errors=login_errors)
         if verify_password(password, hashed_password_from_db):
             return redirect(url_for('landingPage'))
         else:
             login_errors={"loginpassword":["Password error!"]}
             login_errors.update(err)
-            # flash("Password error!")
             return render_template('index.html',errors=login_errors)
     else:
         login_errors={"loginemail":["Email address has not been used to register, please registor first!"]}
         login_errors.update(err)
-        # flash("Email address has not been used to register, please registor first!")
         return render_template('index.html',errors=login_errors)
 
 def register(firstName,lastName,email,password,err):
@@ -38,13 +35,11 @@ def register(firstName,lastName,email,password,err):
         result = insert_user_into_db(firstName, lastName, email, hashed_password,vercode)
         if result:
             if send_email(subject='Verified Code',body=vercode, sender=sender, recipients=[email,], password=emailpassword):
-                # return "Success"
                 return redirect(url_for('verify'))
             else:
                 flash("Registration failed, database is busy now")
                 return render_template('index.html',errors=err)
         else:
-            # flash("This email address is used, try another email address!")
             login_errors={"email":["This email address is used, try another email address!"]}
             return render_template('index.html',errors=login_errors)
     except Exception as e:
@@ -54,7 +49,6 @@ def verification(userVerCode,userEmail,err):
     dbVerCode=getValidationCode(userEmail)[0]
     if userVerCode==dbVerCode:
         alterValidationState(email=userEmail)
-        # return render_template('index.html',errors=err)
         return redirect(url_for('landingPage'))
     else:
         flash("Verified code is incorrect!")
