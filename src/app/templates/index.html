@@ -1,21 +1,17 @@
 <!doctype html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="static/css/styles.css" />
-    <title>BUMTV</title>
-</head>
+<head></head>
+<header></header>
 
 <body>
     {% with messages = get_flashed_messages() %}
-   {% if messages %}
-      {% for message in messages %}
-         {{ message }}<br>
-      {% endfor %}
-   {% endif %}
-{% endwith %}
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}<br>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <center>
         <h1>BUMTV - Logo will go here</h1>
     </center>
@@ -26,48 +22,48 @@
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required>
                 {%if errors.firstName!=Null%}
-                    {% for errors in errors.firstName %}
-                        {{ errors }}
-                    {% endfor %}
-                    {%endif%}
+                {% for errors in errors.firstName %}
+                {{ errors }}
+                {% endfor %}
+                {%endif%}
                 <br>
-              
+
                 <label for="lastName">Last Name:</label>
                 <input type="text" id="lastName" name="lastName" required>
                 {%if errors.lastName!=Null%}
-                    {% for errors in errors.lastName %}
-                        {{ errors }}
-                    {% endfor %}
-                    {%endif%}
+                {% for errors in errors.lastName %}
+                {{ errors }}
+                {% endfor %}
+                {%endif%}
                 <br>
 
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" required>
-                    {%if errors.email!=Null%}
-                    {% for errors in errors.email %}
-                        {{ errors }}
-                    {% endfor %}
-                    {%endif%}
+                {%if errors.email!=Null%}
+                {% for errors in errors.email %}
+                {{ errors }}
+                {% endfor %}
+                {%endif%}
                 <br>
-        
+
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
                 {%if errors.password!=Null%}
-                    {% for errors in errors.password %}
-                        {{ errors }}
-                    {% endfor %}
-                    {%endif%}
+                {% for errors in errors.password %}
+                {{ errors }}
+                {% endfor %}
+                {%endif%}
                 <br>
-        
+
                 <label for="confirm_password">Confirm Password:</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
                 {%if errors.confirm_password!=Null%}
-                    {% for errors in errors.confirm_password %}
-                        {{ errors }}
-                    {% endfor %}
-                    {%endif%}
-                    <br>
-        
+                {% for errors in errors.confirm_password %}
+                {{ errors }}
+                {% endfor %}
+                {%endif%}
+                <br>
+
                 <input type="submit" name="submit" value="Register">
             </form>
         </div>
@@ -78,24 +74,27 @@
                 <input type="text" id="email" name="email" required>
                 {%if errors.loginemail!=Null%}
                 {% for errors in errors.loginemail %}
-                    {{ errors }}
+                {{ errors }}
                 {% endfor %}
                 {%endif%}
                 <br>
-        
+
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
                 {%if errors.loginpassword!=Null%}
                 {% for errors in errors.loginpassword %}
-                    {{ errors }}
+                {{ errors }}
                 {% endfor %}
                 {%endif%}
                 <br>
-        
+
                 <input type="submit" name="submit" value="Login">
             </form>
         </div>
     </div>
+    <footer></footer>
+    <script src="../js/head.js"></script>
+    <script src="../js/footer.js"></script>
 </body>
 
 </html>
