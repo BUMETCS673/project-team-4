@@ -5,16 +5,15 @@
 <header></header>
 
 <body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    {{ message }}<br>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <center>
-        <h1>BUMTV - Logo will go here</h1>
-    </center>
+    <div class="error">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {{ message }}<br>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
     <div class="container">
         <div class="left">
             <h2>Registration</h2>
@@ -91,10 +90,14 @@
                 <input type="submit" name="submit" value="Login">
             </form>
         </div>
+
     </div>
+
     <footer></footer>
     <script src="../js/head.js"></script>
+    <script src="../js/header.js"></script>
     <script src="../js/footer.js"></script>
+
 </body>
 
 </html>
