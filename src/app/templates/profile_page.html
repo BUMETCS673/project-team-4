@@ -1,37 +1,26 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head></head>
-<header></header>
+{% block content %}
+<form method='POST' action={{url_for('landingPage')}}>
+    <button type="submit" id="Back" name="Back" value='Back'>Back</button>
+</form>
+<div class="container">
+    <nav></nav>
+    <h1>User Profile</h1>
 
-<body>
-    <form method='POST' action={{url_for('landingPage')}}>
-        <button type="submit" id="Back" name="Back" value='Back'>Back</button>
-    </form>
-    <div class="container">
-        <nav></nav>
-        <h1>User Profile</h1>
-
-        <div class="profile-info">
-            <h2>Profile Information</h2>
-            <p><strong>Name:</strong> {{ user_name }}</p>
-            <p><strong>Email:</strong> {{ user_email }}</p>
-        </div>
-
-        <div class="watch-list">
-            <h2>Watch List</h2>
-            <ul>
-                {% for item in watch_list %}
-                <li>{{ item.title }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div class="profile-info">
+        <h2>Profile Information</h2>
+        <p><strong>Name:</strong> {{ user_name }}</p>
+        <p><strong>Email:</strong> {{ user_email }}</p>
     </div>
-    <footer></footer>
-    <script src="../js/head.js"></script>
-    <script src="../js/header.js"></script>
-    <script src="../js/footer.js"></script>
-    <script src="../js/nav.js"></script>
-</body>
 
-</html>
+    <div class="watch-list">
+        <h2>Watch List</h2>
+        <ul>
+            {% for item in watch_list %}
+            <li>{{ item.title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
