@@ -5,6 +5,7 @@
 ### Project Description
 
 BUMTV is a modern web application designed to elevate the way users track, explore, and enjoy their favorite movies and TV shows. With the increasing number of streaming media service platforms, it is becoming more difficult to keep track of movies and TV shows that are released. One solution for this is the easy-to-use BUMTV application, which is built with a secure and user-friendly approach. In addition, it offers a comprehensive set of features to help users seamlessly manage their entertainment choices.
+
 The following is a list of the important features of this web application:
 Users can… 
 - Create and maintain accounts that implement security features to protect users’ data.
@@ -20,12 +21,10 @@ Users can…
 
 This directory stores the GitHub Action files which create pipelines and run jobs for deploying the application to AWS and creating AWS resources via Terraform IAC files. 
 
-The following GitHub Actions will be used in this project:
+The following GitHub Actions are being used in this project:
 
 - terraform-plan.yml -> This workflow runs Terraform format, validate, and plan jobs. 
 - terraform-apply.yml -> This workflows runs Terraform apply jobs, which deploy resources to the AWS account. 
-
-One additional workflow file will be added that will deploy updated container images to the AWS Elastic Container Registry (ECR). 
 
 - ##### src
 
@@ -68,6 +67,7 @@ The Flask application framework will be utilzied for the application, and the ap
 - Secrets Manager
 - Amazon Certificate Manager (ACM)
 - Key Management Service (KMS)
+- Route-53 (DNS Management)
 
 ### Branching Strategy
 

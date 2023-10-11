@@ -1,12 +1,8 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>BUMTV</title>
-        <link rel="stylesheet" href="static/css/styles.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <style>
+
+<head>
+    <!--<style>
             .scrollable-container {
                 max-height: 400px;
                 overflow: auto;
@@ -24,46 +20,49 @@
                 color: #fff; /* Text color */
                 border: none; /* Remove border */
                 cursor: pointer; /* Add pointer cursor for hover effect */
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <div class="search-bar">
-                <form method="GET" action="{{ url_for('search_results') }}">
-                    <input type="text" name="query" placeholder="Search for movies and TV shows">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-        </header>
-        <div class="container">
-            <form method="POST" action={{url_for('profilePage')}}>
-                <input type="submit" class="form-control user-profile-icon user-profile-button" value="User" readonly>
+            }-->
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="search-bar">
+            <form method="GET" action="{{ url_for('search_results') }}">
+                <input type="text" name="query" placeholder="Search for movies and TV shows">
+                <button type="submit">Search</button>
             </form>
-        <h1>BUMTV</h1>
-        
-        <h2>Popular Movies</h2>
-            <div class="scrollable-container">
-                <ul class="list-group">
-                    {% for movie in popular_movies %}
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>{{ movie.title }}</strong><br>
-                                Overview: {{ movie.overview }}<br>
-                                <!-- Streaming on: {{ movie['streaming_platform'] }} -->
+        </div>
+    </header>
+    <div class="container">
+        <nav></nav>
+        <form method="POST" action={{url_for('profilePage')}}>
+            <input type="submit" class="form-control user-profile-icon user-profile-button" value="User" readonly>
+        </form>
+        <div class="container">
+            <div class="left">
+                <h2>Popular Movies</h2>
+                <div class="scrollable-container">
+                    <ul class="list-group">
+                        {% for movie in popular_movies %}
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ movie.title }}</strong><br>
+                                    Overview: {{ movie.overview }}<br>
+                                    <!-- Streaming on: {{ movie['streaming_platform'] }} -->
+                                </div>
+                                <!-- You can add additional information here if needed -->
                             </div>
-                            <!-- You can add additional information here if needed -->
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        
-        <h2>Popular TV Shows</h2>
-            <div class="scrollable-container">
-                <ul class="list-group">
-                    {% for tv_show in popular_tv_shows %}
+            <div class="left">
+                <h2>Popular TV Shows</h2>
+                <div class="scrollable-container">
+                    <ul class="list-group">
+                        {% for tv_show in popular_tv_shows %}
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -74,9 +73,17 @@
                                 <!-- You can add additional information here if needed -->
                             </div>
                         </li>
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
+
         </div>
-    </body>
+    </div>
+    <footer></footer>
+    <script src="../js/head.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+</body>
+
 </html>
