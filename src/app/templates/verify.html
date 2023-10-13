@@ -1,35 +1,28 @@
-<!doctype html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="static/css/styles.css" />
-    <title>verify</title>
-</head>
-
-<body>
+{% block content %}
+<div class="error">
     {% with messages = get_flashed_messages() %}
-   {% if messages %}
-      {% for message in messages %}
-         {{ message }}<br>
-      {% endfor %}
-   {% endif %}
-{% endwith %}
-    <div class="container">
-        <div class="left">
-            <h2>Registration</h2>
-            <form method="POST" action="/verify">
-                <label for="verifycode">Email:</label>
-                <input type="text" id="email" name="email" required>
-                <br>
-                <label for="verifycode">Verify Code:</label>
-                <input type="text" id="verifycode" name="verifycode" required>
-                <br>
-                
-                <input type="submit" name="submit" value="Verify">
-            </form>
-        </div>
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}<br>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+<div class="container">
+    <div class="left">
+        <h2>Registration</h2>
+        <form method="POST" action="/verify">
+            <label for="verifycode">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <br>
+            <label for="verifycode">Verify Code:</label>
+            <input type="text" id="verifycode" name="verifycode" required>
+            <br>
+
+            <input type="submit" name="submit" value="Verify">
+        </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

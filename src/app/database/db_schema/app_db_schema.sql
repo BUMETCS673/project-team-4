@@ -30,6 +30,12 @@ CREATE TABLE shares (
   FOREIGN KEY (review_id) REFERENCES reviews(review_id)
 );
 
+CREATE TABLE watch_list (
+  watch_list_id INT AUTO_INCREMENT PRIMARY KEY,
+  mov_show_id INT NOT NULL,
+  FOREIGN KEY (mov_show_id) REFERENCES movies_shows(mov_show_id)
+)
+
 ALTER TABLE users
 ADD COLUMN validationcode VARCHAR(6) AFTER hashed_password;
 
