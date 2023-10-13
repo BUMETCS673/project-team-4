@@ -1,7 +1,7 @@
 import pytest
-from flask import Flask
 from flask.testing import FlaskClient
 from app import app
+
 
 @pytest.fixture
 def client() -> FlaskClient:
@@ -9,10 +9,14 @@ def client() -> FlaskClient:
     with app.test_client() as client:
         yield client
 
+
 def test_successful_login(client):
-    response = client.post('/home', data={'email': 'komuna.dimuna@gmail.com', 'password': 'Password123', 'submit': 'Login'})
-    assert response.status_code == 200 
+    response = client.post('/home',
+                           data={'email': 'komuna.dimuna@gmail.com', 'password': 'Password123', 'submit': 'Login'})
+    assert response.status_code == 200
+
 
 def test_failed_login(client):
-    response = client.post('/home', data={'email': 'komuna.dimuna@gmail.com', 'password': 'invalidpassword', 'submit': 'Login'})
+    response = client.post('/home',
+                           data={'email': 'komuna.dimuna@gmail.com', 'password': 'invalidpassword', 'submit': 'Login'})
     assert b'Login failed' in response.data

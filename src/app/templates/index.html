@@ -22,7 +22,7 @@
     <div class="container">
         <div class="left">
             <h2>Registration</h2>
-            <form method="POST" action={{url_for('accessPage')}}>
+            <form method="POST" action={{url_for('access_page')}}>
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required>
                 {%if errors.firstName!=Null%}
