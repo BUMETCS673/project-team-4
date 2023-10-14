@@ -144,3 +144,24 @@ def alterValidationState(email):
     except Exception as e:
         print(f"Error altering validation code in db: {str(e)}")
         return None
+
+def get_user_details_by_email(email):
+    try:
+        connection = connect_to_database()
+        select_query = "SELECT first_name, last_name FROM users WHERE email = %s"
+        data = (email,)
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(select_query, data)
+        result = cursor.fetchone()
+        cursor.close()
+        connection.close()
+        if result:
+            return result
+        else:
+            print("User not found in the database.")
+            return None
+    except Exception as e:
+        print(f"Error fetching user details from the database: {str(e)}")
+        return None
+
+
