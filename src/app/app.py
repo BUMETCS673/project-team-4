@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session,redirect,url_for
 from businessLogic.movieSearch import get_popular, search_movies_and_tv_shows
 from validation import RegistrationForm
 from verifymail import VerifyCodeForm
 from authentication.appControl import login, register, verification
+from database.db import get_user_details_by_email
+
 
 app = Flask(__name__)
 app.secret_key = "random string"
@@ -31,7 +33,10 @@ def access_page():
     if request.form['submit'] == 'Login':
         email = request.form['email']
         password = request.form['password']
-        return login(email=email, password=password, err=form.errors)
+        result= login(email=email, password=password, err=form.errors)
+        if result:
+            session['user_email'] = email
+        return result
     elif request.form['submit'] == 'Register':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
@@ -81,19 +86,36 @@ def search_results():
 '''
 Profile page for a user
 '''
+
 @app.route('/profile', methods=['GET', 'POST'])
 def profile_page():
-    # TEST VALUES
-    user_name = "John Doe"  # Replace with the user's actual name
-    user_email = "john.doe@example.com"  # Replace with the user's actual email
-    watch_list = [
-        {"title": "Movie 1"},
-        {"title": "Movie 2"},
-    ]
+    try:
+        if 'user_email' not in session:
+            print('You must be logged in to access the profile page.')
+            return redirect(url_for('main'))
+        user_email = session['user_email']
+        user_data = get_user_details_by_email(user_email)
+        if not user_data:
+            print('User not found in the database.')
+            return redirect(url_for('main'))
+        user_first_name = user_data['first_name']
+        user_last_name = user_data['last_name']
+        if request.method == 'POST' and 'submit' in request.form:
+            if request.form['submit'] == 'Logout':
+                session.pop('user_email', None)
+                print('Logout successful')
+                return redirect(url_for('main'))
+        return render_template('profile_page.html', user_email=user_email, user_first_name=user_first_name, user_last_name=user_last_name)
+    except Exception as e:
+        print(str(e))
+        return "An error occurred."
 
-    return render_template('profile_page.html', user_name=user_name,
-                           user_email=user_email,
-                           watch_list=watch_list)
+@app.route('/logout', methods=['POST'])
+def logout():
+    if 'user_email' in session:
+        session.pop('user_email', None)  
+        print('Logout successful')
+    return redirect(url_for('main'))
 
 
 if __name__ == '__main__':
