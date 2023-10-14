@@ -10,7 +10,7 @@ body {
     flex-direction: column;
     font-family: Arial, sans-serif;
     margin: auto;
-    min-height: 70vh;
+    min-height: 45em;
 
     padding-bottom: 2em;
     padding-left: 2em;
@@ -38,9 +38,9 @@ html {
 }
 
 footer {
-    height: auto;
-    margin-bottom: .75em;
-    margin-top: 4em;
+    height: 5em;
+    
+    margin-top: 10em;
     padding-top: 2em;
     text-align: center;
 }
@@ -66,31 +66,28 @@ img {
 }
 
 .left {
-    width: 30em;
+    width: 33em;
     background-color: #fff;
-    height: 25em;
+    height: 28em;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-right: 2em;
     padding: 1em;
-    margin-left: 5em;
-
 }
-
 
 .right {
     width: 45%;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-right: 5em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);    
     margin-bottom: 11em;
 }
 
 .left-landing {
     width: 30em;
     background-color: #fff;
-    height: 25em;
+    height: 350em;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 1em;
@@ -107,4 +104,25 @@ img {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     margin-right: 5em;
     margin-bottom: 11em;
+}
+
+.scrollable-container {
+    align-items: center;
+    background-color: lightblue;
+    width: 28em;
+    height: 20em;
+    overflow: scroll;
+}
+
+.search-container {
+    align-items: center;
+    background-color: lightblue;
+    width: 60em;
+    height: 20em;
+    overflow: scroll;
+}
+
+.search-bar {
+    margin-bottom: 10em;
+    margin-left: 5em;
 }
