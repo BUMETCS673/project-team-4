@@ -13,20 +13,20 @@
 <div class="container">
     <div class="left">
         <h2>Registration</h2>
-        <form method="POST" action={{url_for('accessPage')}}>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-            {%if errors.firstName!=Null%}
-            {% for errors in errors.firstName %}
+        <form method="POST" action={{url_for('access_page')}}>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+            {%if errors.first_name!=Null%}
+            {% for errors in errors.first_name %}
             {{ errors }}
             {% endfor %}
             {%endif%}
             <br>
 
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required>
-            {%if errors.lastName!=Null%}
-            {% for errors in errors.lastName %}
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
+            {%if errors.last_name!=Null%}
+            {% for errors in errors.last_name %}
             {{ errors }}
             {% endfor %}
             {%endif%}

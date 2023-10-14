@@ -18,7 +18,7 @@ def login(email,password,err):
             login_errors.update(err)
             return render_template('index.html',errors=login_errors)
         if verify_password(password, hashed_password_from_db):
-            return redirect(url_for('landingPage'))
+            return redirect(url_for('landing_page'))
         else:
             login_errors={"loginpassword":["Password error!"]}
             login_errors.update(err)
@@ -28,11 +28,11 @@ def login(email,password,err):
         login_errors.update(err)
         return render_template('index.html',errors=login_errors)
 
-def register(firstName,lastName,email,password,err):
+def register(first_name,last_name,email,password,err):
     hashed_password = hash_password(password)
     vercode=verification_code()
     try:
-        result = insert_user_into_db(firstName, lastName, email, hashed_password,vercode)
+        result = insert_user_into_db(first_name, last_name, email, hashed_password, vercode)
         if result:
             if send_email(subject='Verified Code',body=vercode, sender=sender, recipients=[email,], password=emailpassword):
                 return redirect(url_for('verify'))
@@ -49,7 +49,7 @@ def verification(userVerCode,userEmail,err):
     dbVerCode=getValidationCode(userEmail)[0]
     if userVerCode==dbVerCode:
         alterValidationState(email=userEmail)
-        return redirect(url_for('landingPage'))
+        return redirect(url_for('landing_page'))
     else:
         flash("Verified code is incorrect!")
         return redirect(url_for('verify'))
