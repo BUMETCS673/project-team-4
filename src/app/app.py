@@ -3,7 +3,7 @@ from businessLogic.movieSearch import get_popular, search_movies_and_tv_shows
 from validation import RegistrationForm
 from verifymail import VerifyCodeForm
 from authentication.appControl import login, register, verification
-from database.db import get_user_details_by_email
+from database.db import get_user_details_by_email, add_from_watchlist, remove_from_watchlist
 
 
 app = Flask(__name__)
@@ -67,11 +67,62 @@ Landing page once a user is logged into the app
 '''
 @app.route('/landing-page', methods=['GET', 'POST'])
 def landing_page():
-    popular_movies, popular_tv_shows = get_popular()
-    return render_template('landing_page.html',
-                           popular_movies=popular_movies,
-                           popular_tv_shows=popular_tv_shows)
+    try:
+        if 'user_email' not in session:
+            print('You must be logged in to do this action.')
+            return redirect(url_for('main'))
 
+        user_email = session['user_email']
+        user_data = get_user_details_by_email(user_email)
+
+        if not user_data:
+            print('User not found in the database.')
+            return redirect(url_for('main'))
+        
+        popular_movies, popular_tv_shows = get_popular()
+        
+        # Sample Data to show visuals
+        watchlist = [{"title": "Loki" , "id": 12345 },{"title": "One Piece" , "id": 67890 }]
+        
+        return render_template('landing_page.html',
+                            user_first_name = user_data['first_name'],
+                            popular_movies=popular_movies,
+                            popular_tv_shows=popular_tv_shows, 
+                            user_watchlist = watchlist)
+    except Exception as e:
+        print(str(e))
+        return "An error occurred."
+
+@app.route('/landing-page/modify_watchlist', methods=['POST'])
+def modifyWatchlist():
+    try:
+        if 'user_email' not in session:
+            print('You must be logged in to do this action.')
+            return redirect(url_for('main'))
+
+        user_email = session['user_email']
+        user_data = get_user_details_by_email(user_email)
+
+        if not user_data:
+            print('User not found in the database.')
+            return redirect(url_for('main'))
+
+        user_id = user_data['user_id']
+        mov_show_id = request.form.get('mov_show_id')
+        action = request.form.get('action')
+        if action == 'add':
+            add_from_watchlist(user_id, mov_show_id)
+        elif action == 'remove':
+            remove_from_watchlist(user_id, mov_show_id)
+        else:
+            print('Invalid action specified.')
+        add_from_watchlist(user_id, mov_show_id)
+
+        return redirect(url_for('landing_page'))
+
+    except Exception as e:
+        print(str(e))
+        return "An error occurred."
 
 '''
 Display search results for a user
@@ -105,7 +156,9 @@ def profile_page():
                 session.pop('user_email', None)
                 print('Logout successful')
                 return redirect(url_for('main'))
-        return render_template('profile_page.html', user_email=user_email, user_first_name=user_first_name, user_last_name=user_last_name)
+        return render_template('profile_page.html', user_email=user_email, 
+                               user_first_name=user_first_name, 
+                               user_last_name=user_last_name)
     except Exception as e:
         print(str(e))
         return "An error occurred."

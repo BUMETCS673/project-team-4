@@ -13,6 +13,11 @@
             <strong>Overview:</strong> {{ result.overview }}<br>
             {% if result.release_date %}
             <strong>Release Date:</strong> {{ result.release_date }}<br>
+            <form method="POST" action="{{ url_for('modifyWatchlist') }}">
+                <input type="hidden" name="mov_show_id" value="{{ result.id }}">
+                <input type="hidden" name="action" value="add">
+                <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+            </form>
             {% endif %}
             <!-- Add more fields as needed -->
         </li>

@@ -148,7 +148,7 @@ def alterValidationState(email):
 def get_user_details_by_email(email):
     try:
         connection = connect_to_database()
-        select_query = "SELECT first_name, last_name FROM users WHERE email = %s"
+        select_query = "SELECT first_name, last_name, user_id FROM users WHERE email = %s"
         data = (email,)
         cursor = connection.cursor(dictionary=True)
         cursor.execute(select_query, data)
@@ -163,3 +163,39 @@ def get_user_details_by_email(email):
     except Exception as e:
         print(f"Error fetching user details from the database: {str(e)}")
         return None
+    
+def add_from_watchlist(user_id, mov_show_id):
+    try:
+        connection = connect_to_database()
+
+        insert_query = "INSERT INTO watch_list (user_id, mov_show_id) VALUES (%s, %s)"
+        data = (user_id, mov_show_id)
+
+        execute_query(connection, insert_query, data)
+        
+        connection.commit()
+        connection.close()
+        return True
+
+    except Exception as e:
+        # Handle any exceptions or errors that may occur during database insertion
+        print(f"Error adding to watchlist: {str(e)}")
+        return False
+    
+def remove_from_watchlist(user_id, mov_show_id):
+    try:
+        connection = connect_to_database()
+
+        delete_query = "DELETE FROM watch_list WHERE user_id = %s AND mov_show_id = %s"
+        data = (user_id, mov_show_id)
+
+        execute_query(connection, delete_query, data)
+
+        connection.commit()
+        connection.close()
+        return True
+
+    except Exception as e:
+        # Handle any exceptions or errors that may occur during database deletion
+        print(f"Error removing from watchlist: {str(e)}")
+        return False
