@@ -22,6 +22,16 @@ def get_popular():
     popular_tv_shows = popular_tv_shows
     return popular_movies, popular_tv_shows 
 
+def getName(movie_id,media_type):
+    if media_type =='tv':
+        move_show = tmdb.tv(movie_id).details()
+        return move_show.name
+    elif media_type == 'movie':
+        move_show = tmdb.movie(movie_id).details()
+        return move_show.title
+    else:
+        return '[Failed To Load :(]'
+
 def search_movies_and_tv_shows(query):
     url = 'https://api.themoviedb.org/3/search/multi'
     params = {
@@ -46,7 +56,9 @@ def search_movies_and_tv_shows(query):
             for result in data['results']:
                 if result['media_type'] in ['movie', 'tv']:
                     formatted_result = {
+                        'id' : result['id'],
                         'title': result['title'] if result['media_type'] == 'movie' else result['name'],
+                        'media_type': result['media_type'],
                         'overview': result['overview'],
                         'release_date': result['release_date'] if result['media_type'] == 'movie' else None,
                         'poster_path': result['poster_path']

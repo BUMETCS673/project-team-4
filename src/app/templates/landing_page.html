@@ -28,6 +28,7 @@
                                 Overview: {{ movie.overview }}<br>
                                 <form method="POST" action="{{ url_for('modifyWatchlist') }}">
                                     <input type="hidden" name="mov_show_id" value="{{ movie.id }}">
+                                    <input type="hidden" name="media_type" value="{{ movie.media_type.name }}">
                                     <input type="hidden" name="action" value="add">
                                     <button type="submit" class="btn btn-primary">Add to Watchlist</button>
                                 </form>
@@ -52,6 +53,7 @@
                                 Overview: {{ tv_show.overview }}<br>
                                 <form method="POST" action="{{ url_for('modifyWatchlist') }}">
                                     <input type="hidden" name="mov_show_id" value="{{ tv_show.id }}">
+                                    <input type="hidden" name="media_type" value="{{ tv_show.media_type.name }}">
                                     <input type="hidden" name="action" value="add">
                                     <button type="submit" class="btn btn-primary">Add to Watchlist</button>
                                 </form>
@@ -73,11 +75,12 @@
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <strong>{{ item.title }}</strong><br>
+                                <strong>{{ item.Title }}</strong><br>
                                 <!-- You can display additional information about the item if needed -->
                             </div>
                             <form method="POST" action="{{ url_for('modifyWatchlist') }}">
-                                <input type="hidden" name="mov_show_id" value="{{ item.id }}">
+                                <input type="hidden" name="mov_show_id" value="{{ item.mov_show_id }}">
+                                <input type="hidden" name="media_type" value="{{ item.media_type}}">
                                 <input type="hidden" name="action" value="remove">
                                 <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
                             </form>

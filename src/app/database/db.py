@@ -164,28 +164,40 @@ def get_user_details_by_email(email):
         print(f"Error fetching user details from the database: {str(e)}")
         return None
     
-def add_from_watchlist(user_id, mov_show_id):
+def add_from_watchlist(user_id, mov_show_id, media_type):
     try:
         connection = connect_to_database()
 
-        insert_query = "INSERT INTO watch_list (user_id, mov_show_id) VALUES (%s, %s)"
+        select_query = "SELECT * FROM watch_list WHERE user_id = %s AND mov_show_id = %s"
         data = (user_id, mov_show_id)
 
+        cursor = connection.cursor()
+        cursor.execute(select_query, data)
+        existing_entry = cursor.fetchone()
+
+        if existing_entry:
+            message = "Movie/Show is already in the watchlist."
+            print(str(message))
+            return message
+        insert_query = "INSERT INTO watch_list (user_id, mov_show_id, media_type) VALUES (%s, %s, %s)"
+        data = (user_id, mov_show_id,media_type)
         execute_query(connection, insert_query, data)
         
         connection.commit()
         connection.close()
-        return True
+        message = "Movie/Show added to watchlist successfully."
+        print(str(message))
+        return  message
 
     except Exception as e:
         # Handle any exceptions or errors that may occur during database insertion
         print(f"Error adding to watchlist: {str(e)}")
-        return False
+        return "An error occurred while adding to watchlist."
     
 def remove_from_watchlist(user_id, mov_show_id):
     try:
         connection = connect_to_database()
-
+        
         delete_query = "DELETE FROM watch_list WHERE user_id = %s AND mov_show_id = %s"
         data = (user_id, mov_show_id)
 
@@ -193,9 +205,30 @@ def remove_from_watchlist(user_id, mov_show_id):
 
         connection.commit()
         connection.close()
+        message = "Movie/Show removed from watchlist successfully."
+        print(str(message))
         return True
 
     except Exception as e:
         # Handle any exceptions or errors that may occur during database deletion
         print(f"Error removing from watchlist: {str(e)}")
         return False
+
+def get_watchlist_movies(user_id):
+    try:
+        connection = connect_to_database()
+        cursor = connection.cursor(dictionary=True)
+
+        select_query = "SELECT mov_show_id, media_type FROM watch_list WHERE user_id = %s"
+        select_data = (user_id,)
+        cursor.execute(select_query, select_data)
+
+        watchlist_movies = cursor.fetchall()
+
+        connection.close()
+        return watchlist_movies
+
+    except Exception as e:
+        # Handle any exceptions or errors that may occur during database selection
+        print(f"Error fetching watchlist movies: {str(e)}")
+        return []

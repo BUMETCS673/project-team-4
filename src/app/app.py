@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, session,redirect,url_for
-from businessLogic.movieSearch import get_popular, search_movies_and_tv_shows
+from businessLogic.movieSearch import *
 from validation import RegistrationForm
 from verifymail import VerifyCodeForm
 from authentication.appControl import login, register, verification
-from database.db import get_user_details_by_email, add_from_watchlist, remove_from_watchlist
+from database.db import *
 
 
 app = Flask(__name__)
@@ -81,9 +81,9 @@ def landing_page():
         
         popular_movies, popular_tv_shows = get_popular()
         
-        # Sample Data to show visuals
-        watchlist = [{"title": "Loki" , "id": 12345 },{"title": "One Piece" , "id": 67890 }]
-        
+        watchlist = get_watchlist_movies(user_data['user_id'])
+        for item in watchlist:
+            item['Title'] = getName(item['mov_show_id'],item['media_type'])
         return render_template('landing_page.html',
                             user_first_name = user_data['first_name'],
                             popular_movies=popular_movies,
@@ -109,15 +109,14 @@ def modifyWatchlist():
 
         user_id = user_data['user_id']
         mov_show_id = request.form.get('mov_show_id')
+        media_type = request.form.get('media_type')
         action = request.form.get('action')
         if action == 'add':
-            add_from_watchlist(user_id, mov_show_id)
+            add_from_watchlist(user_id, mov_show_id,media_type)
         elif action == 'remove':
             remove_from_watchlist(user_id, mov_show_id)
         else:
             print('Invalid action specified.')
-        add_from_watchlist(user_id, mov_show_id)
-
         return redirect(url_for('landing_page'))
 
     except Exception as e:
