@@ -58,7 +58,7 @@ def verify():
     if request.method == 'POST':
         userVerCode = request.form['verifycode']
         userEmail = request.form['email']
-        return verification(userVerCode=userVerCode, userEmail=userEmail, err=form.errors)
+        return verification(userVerCode=userVerCode, userEmail=userEmail)
     return render_template('verify.html', errors=form.errors)
 
 
@@ -83,7 +83,7 @@ def landing_page():
         
         watchlist = get_watchlist_movies(user_data['user_id'])
         for item in watchlist:
-            item['Title'] = getName(item['mov_show_id'],item['media_type'])
+            item['Title'] = get_name(item['mov_show_id'],item['media_type'])
         return render_template('landing_page.html',
                             user_first_name = user_data['first_name'],
                             popular_movies=popular_movies,
@@ -162,6 +162,10 @@ def profile_page():
         print(str(e))
         return "An error occurred."
 
+
+'''
+Allow a user to log out of their account for security
+'''
 @app.route('/logout', methods=['POST'])
 def logout():
     if 'user_email' in session:
