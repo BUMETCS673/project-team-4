@@ -1,17 +1,17 @@
+{% extends 'base.html' %}
+
 {% block content %}
-<div class="container">
-    <nav></nav>
-    <h1>User Profile</h1>
 
-    <div class="profile-info">
-        <h2>Profile Information</h2>
-        <p><strong>First Name:</strong> {{ user_first_name }}</p>
-        <p><strong>Last Name:</strong> {{ user_last_name }}</p>
-        <p><strong>Email:</strong> {{ user_email }}</p>
-    </div>
-
-    <form method='POST' action="{{ url_for('logout') }}">
-        <button type="submit" name="submit" value="Logout">Logout</button>
-    </form>
+<div class="page-title">
+    <center><h1>User Profile</h1></center>
 </div>
+<div class="container">
+    <div class="profile-data">
+        <h2>Profile Information</h2>
+        <p><label>First Name:</label>{{ user_first_name }}</p>
+        <p><label>Last Name:</label>{{ user_last_name }}</p>
+        <p><label>Email:</label>{{ user_email }}</p>
+    </div>
+</div>
+
 {% endblock %}

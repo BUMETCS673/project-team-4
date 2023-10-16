@@ -1,22 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="search-bar">
-    <form method="GET" action="{{ url_for('search_results') }}">
-        <input type="text" name="query" placeholder="Search for movies and TV shows">
-        <button type="submit">Search</button>
-    </form>
-</div>
+
 <div class="page-title">
     <center>
-        <h1>Movies and Shows</h1>
+        <h1>The BumTV Hotlist</h1>
     </center>
 </div>
-
-<nav></nav>
-<form method="POST" action={{url_for('profile_page')}}>
-    <input type="submit" class="form-control user-profile-icon user-profile-button" value="User" readonly>
-</form>
+<div class="search-bar">
+    <form method="GET" action="{{ url_for('search_results') }}">
+        <input class="input-search" type="text" name="query" placeholder="Search for movies and TV shows">
+        <button class="app-button" type="submit">Search</button>
+    </form>
+</div>
 <div class="container">
     <div class="landing-left">
         <h2>Popular Movies</h2>
@@ -32,7 +28,7 @@
                                 <input type="hidden" name="mov_show_id" value="{{ movie.id }}">
                                 <input type="hidden" name="media_type" value="{{ movie.media_type.name }}">
                                 <input type="hidden" name="action" value="add">
-                                <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+                                <button class="app-button" type="submit" class="btn btn-primary">Add to Watchlist</button>
                             </form>
                             <!-- Streaming on: {{ movie['streaming_platform'] }} -->
                         </div>
@@ -57,7 +53,7 @@
                                 <input type="hidden" name="mov_show_id" value="{{ tv_show.id }}">
                                 <input type="hidden" name="media_type" value="{{ tv_show.media_type.name }}">
                                 <input type="hidden" name="action" value="add">
-                                <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+                                <button class="app-button" type="submit" class="btn btn-primary">Add to Watchlist</button>
                             </form>
                             <!-- Streaming on: {{ tv_show['streaming_platform'] }} -->
                         </div>
@@ -67,26 +63,24 @@
                 {% endfor %}
             </ul>
         </div>
-    </div>    
+    </div>
 </div>
 <div class="watchlist">
     <h2>{{user_first_name}}'s Watchlist</h2>
-    <div class="scrollable-container">
-        <ul class="list-group">
+    <div class="scrollable-container-watchlist">
+        <ul>
             {% for item in user_watchlist %}
-            <li class="list-group-item">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>{{ item.Title }}</strong><br>
-                        <!-- You can display additional information about the item if needed -->
-                    </div>
-                    <form method="POST" action="{{ url_for('modifyWatchlist') }}">
-                        <input type="hidden" name="mov_show_id" value="{{ item.mov_show_id }}">
-                        <input type="hidden" name="media_type" value="{{ item.media_type}}">
-                        <input type="hidden" name="action" value="remove">
-                        <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
-                    </form>
+            <li>
+                <div>
+                    <strong>{{ item.Title }}</strong><br>
+                    <!-- You can display additional information about the item if needed -->
                 </div>
+                <form method="POST" action="{{ url_for('modifyWatchlist') }}">
+                    <input type="hidden" name="mov_show_id" value="{{ item.mov_show_id }}">
+                    <input type="hidden" name="media_type" value="{{ item.media_type}}">
+                    <input type="hidden" name="action" value="remove">
+                    <button class="app-button" type="submit" class="btn btn-danger">Remove from Watchlist</button>
+                </form>
             </li>
             {% endfor %}
         </ul>

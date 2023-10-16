@@ -17,4 +17,4 @@ class RegistrationForm(Form):
 
     ])
     confirm_password = PasswordField('confirm_password',
-                                     [validators.EqualTo('password', message='Password must match')])
+                                     [validators.EqualTo('password', message='The passwords you entered do not match!')])
