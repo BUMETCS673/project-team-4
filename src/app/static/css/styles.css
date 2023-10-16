@@ -39,7 +39,7 @@ html {
 
 footer {
     height: 5em;
-    
+
     margin-top: 10em;
     padding-top: 2em;
     text-align: center;
@@ -80,30 +80,56 @@ img {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     margin-bottom: 11em;
 }
 
-.left-landing {
-    width: 30em;
+.landing-left {
+
     background-color: #fff;
-    height: 350em;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 30em;
     padding: 1em;
     margin-left: 5em;
-
+    width: 30em;
 }
 
+.landing-right {
 
-.right-landing {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 30em;
+    padding: 1em;
+    margin-right: 5em;
+    width: 30em;
+}
+
+.left-profile {
+    width: 20em;
+    background-color: #fff;
+    height: 28em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1em;
+    margin-right: 2em;
+    padding: 1em;
+}
+
+.page-title {
+    align-content: center;
+    margin-top: -5em;
+    margin-bottom: 7.5em;
+}
+
+.right-profile {
     width: 45%;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-right: 5em;
-    margin-bottom: 11em;
+    margin-bottom: 1em;
 }
 
 .scrollable-container {
@@ -125,4 +151,15 @@ img {
 .search-bar {
     margin-bottom: 10em;
     margin-left: 5em;
+}
+
+.watchlist {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    height: 28em;
+    padding: 1em;
+    margin-top: 25em;
+    margin-left: 5em;
+    width: 60em;
 }
