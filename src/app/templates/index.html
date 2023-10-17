@@ -8,11 +8,20 @@
         {% endfor %}
         {% endif %}
     </p>
-    {% if errors.password!=Null %}
-    {% for errors in errors.password %}
-    {{ errors }}
-    {% endfor %}
-    {% endif %}
+    <p>
+        {% if errors.password!=Null %}
+        {% for errors in errors.password %}
+        {{ errors }}
+        {% endfor %}
+        {% endif %}
+    </p>
+    <p>
+        {%if errors.loginemail!=Null%}
+        {% for errors in errors.loginemail %}
+        {{ errors }}
+        {% endfor %}
+        {%endif%}
+    </p>
 </div>
 <div class="page-title-errors">
     <center>
@@ -62,12 +71,7 @@
         <h2>Login</h2>
         <form method="POST" action="/home">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required>
-            {%if errors.loginemail!=Null%}
-            {% for errors in errors.loginemail %}
-            {{ errors }}
-            {% endfor %}
-            {%endif%}
+            <input type="text" id="email" name="email" required>            
             <br>
 
             <label for="password">Password:</label>
