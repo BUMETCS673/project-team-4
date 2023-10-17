@@ -22,6 +22,13 @@
         {% endfor %}
         {%endif%}
     </p>
+    <p>
+        {%if errors.email!=Null%}
+        {% for errors in errors.email %}
+        {{ errors }}
+        {% endfor %}
+        {%endif%}
+    </p>
 </div>
 <div class="page-title-errors">
     <center>
@@ -52,11 +59,6 @@
 
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" required>
-            {%if errors.email!=Null%}
-            {% for errors in errors.email %}
-            {{ errors }}
-            {% endfor %}
-            {%endif%}
             <br>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -71,7 +73,7 @@
         <h2>Login</h2>
         <form method="POST" action="/home">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required>            
+            <input type="text" id="email" name="email" required>
             <br>
 
             <label for="password">Password:</label>
