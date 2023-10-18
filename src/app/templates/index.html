@@ -8,11 +8,27 @@
         {% endfor %}
         {% endif %}
     </p>
-    {% if errors.password!=Null %}
-    {% for errors in errors.password %}
-    {{ errors }}
-    {% endfor %}
-    {% endif %}
+    <p>
+        {% if errors.password!=Null %}
+        {% for errors in errors.password %}
+        {{ errors }}
+        {% endfor %}
+        {% endif %}
+    </p>
+    <p>
+        {%if errors.loginemail!=Null%}
+        {% for errors in errors.loginemail %}
+        {{ errors }}
+        {% endfor %}
+        {%endif%}
+    </p>
+    <p>
+        {%if errors.email!=Null%}
+        {% for errors in errors.email %}
+        {{ errors }}
+        {% endfor %}
+        {%endif%}
+    </p>
 </div>
 <div class="page-title-errors">
     <center>
@@ -43,11 +59,6 @@
 
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" required>
-            {%if errors.email!=Null%}
-            {% for errors in errors.email %}
-            {{ errors }}
-            {% endfor %}
-            {%endif%}
             <br>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -63,11 +74,6 @@
         <form method="POST" action="/home">
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" required>
-            {%if errors.loginemail!=Null%}
-            {% for errors in errors.loginemail %}
-            {{ errors }}
-            {% endfor %}
-            {%endif%}
             <br>
 
             <label for="password">Password:</label>
